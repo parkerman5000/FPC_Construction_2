@@ -28,6 +28,7 @@
         initContactForm();
         initScrollHeader();
         updateCurrentYear();
+        initGoogleDriveGallery();
     });
 
     // ============================================
@@ -490,6 +491,165 @@
         if (yearElement) {
             yearElement.textContent = new Date().getFullYear();
         }
+    }
+
+    // ============================================
+    // Gallery Integration (Local + Google Drive)
+    // ============================================
+    var galleryMode = 'local'; // 'local' or 'gdrive'
+
+    function initGoogleDriveGallery() {
+        // Load gallery configuration
+        fetch('assets/data/gallery-config.json')
+            .then(function(response) {
+                if (!response.ok) {
+                    console.log('Gallery config not found, using default images');
+                    return null;
+                }
+                return response.json();
+            })
+            .then(function(config) {
+                if (!config) return;
+
+                // Set mode from config
+                galleryMode = config.mode || 'local';
+
+                // Update project images from config
+                if (config.projects && config.projects.length > 0) {
+                    updateProjectImages(config.projects);
+                }
+
+                // Initialize additional gallery if present
+                if (config.gallery && config.gallery.length > 0) {
+                    initDynamicGallery(config.gallery);
+                }
+            })
+            .catch(function(error) {
+                console.log('Gallery config loading skipped:', error.message);
+            });
+    }
+
+    // Get image URL based on mode (local or Google Drive)
+    function getImageUrl(item, index) {
+        // Local mode: use local image path
+        if (galleryMode === 'local' && item.localImage && item.localImage.trim() !== '') {
+            return 'assets/images/projects/' + item.localImage;
+        }
+        // Google Drive mode: use gdrive ID
+        if (galleryMode === 'gdrive' && item.gdriveId && item.gdriveId.trim() !== '') {
+            return 'https://drive.google.com/thumbnail?id=' + item.gdriveId + '&sz=w800';
+        }
+        // Fallback to placeholder
+        return 'assets/images/placeholder/project-' + (index + 1) + '.jpg';
+    }
+
+    // Update project card images from config
+    function updateProjectImages(projects) {
+        var cards = document.querySelectorAll('.project-card');
+        cards.forEach(function(card, index) {
+            if (projects[index]) {
+                var projectData = projects[index];
+                var img = card.querySelector('img');
+
+                if (img) {
+                    var imageUrl = getImageUrl(projectData, index);
+                    img.src = imageUrl;
+                    img.onerror = function() {
+                        // Fallback to placeholder if image fails
+                        this.src = 'assets/images/placeholder/project-' + (index + 1) + '.jpg';
+                    };
+                }
+
+                // Update title and location if provided
+                var titleEl = card.querySelector('.project-card__title');
+                var locationEl = card.querySelector('.project-card__location');
+
+                if (titleEl && projectData.title) {
+                    titleEl.textContent = projectData.title;
+                }
+                if (locationEl && projectData.location) {
+                    locationEl.textContent = projectData.location;
+                }
+            }
+        });
+    }
+
+    // Initialize dynamic gallery section
+    function initDynamicGallery(galleryItems) {
+        var galleryContainer = document.getElementById('dynamic-gallery');
+        if (!galleryContainer) return;
+
+        var validItems = galleryItems.filter(function(item) {
+            if (galleryMode === 'local') {
+                return item.localImage && item.localImage.trim() !== '';
+            }
+            return item.gdriveId && item.gdriveId.trim() !== '';
+        });
+
+        if (validItems.length === 0) {
+            galleryContainer.style.display = 'none';
+            return;
+        }
+
+        var grid = galleryContainer.querySelector('.gallery__grid');
+        if (!grid) return;
+
+        // Clear existing items
+        grid.innerHTML = '';
+
+        validItems.forEach(function(item, index) {
+            var imageUrl = getImageUrl(item, index);
+            if (!imageUrl) return;
+
+            var galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery__item';
+            galleryItem.innerHTML =
+                '<img src="' + imageUrl + '" alt="' + (item.title || 'Gallery image') + '" loading="lazy">' +
+                '<div class="gallery__overlay">' +
+                    '<span class="gallery__title">' + (item.title || '') + '</span>' +
+                '</div>';
+
+            // Add lightbox click handler
+            galleryItem.addEventListener('click', function() {
+                openLightbox(imageUrl, item.title);
+            });
+
+            grid.appendChild(galleryItem);
+        });
+
+        galleryContainer.style.display = 'block';
+    }
+
+    // Simple lightbox for gallery images
+    function openLightbox(imageUrl, title) {
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML =
+            '<div class="lightbox__backdrop"></div>' +
+            '<div class="lightbox__content">' +
+                '<button class="lightbox__close" aria-label="Close">&times;</button>' +
+                '<img src="' + imageUrl + '" alt="' + (title || 'Gallery image') + '">' +
+                (title ? '<p class="lightbox__title">' + title + '</p>' : '') +
+            '</div>';
+
+        document.body.appendChild(lightbox);
+        document.body.style.overflow = 'hidden';
+
+        // Close handlers
+        var closeHandler = function() {
+            lightbox.remove();
+            document.body.style.overflow = '';
+        };
+
+        lightbox.querySelector('.lightbox__backdrop').addEventListener('click', closeHandler);
+        lightbox.querySelector('.lightbox__close').addEventListener('click', closeHandler);
+
+        document.addEventListener('keydown', function escHandler(e) {
+            if (e.key === 'Escape') {
+                closeHandler();
+                document.removeEventListener('keydown', escHandler);
+            }
+        });
     }
 
 })();

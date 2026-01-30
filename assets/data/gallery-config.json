@@ -1,0 +1,81 @@
+{
+  "mode": "local",
+  "instructions": "To add photos: 1) Upload images to assets/images/projects/ folder, 2) Add the filename to 'localImage' field below. For Google Drive: set mode to 'gdrive' and use 'gdriveId' field.",
+  "googleDriveFolderUrl": "https://drive.google.com/drive/folders/1mtkzCuw_zNsbeDa5N_P5yDJTL6lhLrF-",
+  "projects": [
+    {
+      "id": "project-1",
+      "title": "Residential Driveway",
+      "category": "driveways",
+      "location": "North Augusta, SC",
+      "description": "Complete concrete driveway installation",
+      "localImage": "project-1.jpg",
+      "gdriveId": ""
+    },
+    {
+      "id": "project-2",
+      "title": "2-Acre Lot Clearing",
+      "category": "land-clearing",
+      "location": "Aiken, SC",
+      "description": "Full land clearing and site preparation",
+      "localImage": "project-2.jpg",
+      "gdriveId": ""
+    },
+    {
+      "id": "project-3",
+      "title": "Commercial Foundation",
+      "category": "foundations",
+      "location": "Augusta, GA",
+      "description": "Commercial building foundation construction",
+      "localImage": "project-3.jpg",
+      "gdriveId": ""
+    },
+    {
+      "id": "project-4",
+      "title": "Site Preparation",
+      "category": "grading",
+      "location": "Evans, GA",
+      "description": "Complete site grading and preparation",
+      "localImage": "project-4.jpg",
+      "gdriveId": ""
+    },
+    {
+      "id": "project-5",
+      "title": "Stamped Concrete",
+      "category": "driveways",
+      "location": "Martinez, GA",
+      "description": "Decorative stamped concrete driveway",
+      "localImage": "project-5.jpg",
+      "gdriveId": ""
+    },
+    {
+      "id": "project-6",
+      "title": "Commercial Lot",
+      "category": "land-clearing",
+      "location": "North Augusta, SC",
+      "description": "Commercial property land clearing",
+      "localImage": "project-6.jpg",
+      "gdriveId": ""
+    }
+  ],
+  "gallery": [
+    {
+      "id": "gallery-1",
+      "title": "Project Photo 1",
+      "localImage": "",
+      "gdriveId": ""
+    },
+    {
+      "id": "gallery-2",
+      "title": "Project Photo 2",
+      "localImage": "",
+      "gdriveId": ""
+    },
+    {
+      "id": "gallery-3",
+      "title": "Project Photo 3",
+      "localImage": "",
+      "gdriveId": ""
+    }
+  ]
+}
