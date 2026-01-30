@@ -494,8 +494,10 @@
     }
 
     // ============================================
-    // Google Drive Gallery Integration
+    // Gallery Integration (Local + Google Drive)
     // ============================================
+    var galleryMode = 'local'; // 'local' or 'gdrive'
+
     function initGoogleDriveGallery() {
         // Load gallery configuration
         fetch('assets/data/gallery-config.json')
@@ -508,6 +510,9 @@
             })
             .then(function(config) {
                 if (!config) return;
+
+                // Set mode from config
+                galleryMode = config.mode || 'local';
 
                 // Update project images from config
                 if (config.projects && config.projects.length > 0) {
@@ -524,56 +529,61 @@
             });
     }
 
-    // Convert Google Drive file ID to embeddable image URL
-    function getGoogleDriveImageUrl(fileId) {
-        if (!fileId || fileId.trim() === '') return null;
-        // Google Drive direct image URL format
-        return 'https://drive.google.com/thumbnail?id=' + fileId + '&sz=w800';
+    // Get image URL based on mode (local or Google Drive)
+    function getImageUrl(item, index) {
+        // Local mode: use local image path
+        if (galleryMode === 'local' && item.localImage && item.localImage.trim() !== '') {
+            return 'assets/images/projects/' + item.localImage;
+        }
+        // Google Drive mode: use gdrive ID
+        if (galleryMode === 'gdrive' && item.gdriveId && item.gdriveId.trim() !== '') {
+            return 'https://drive.google.com/thumbnail?id=' + item.gdriveId + '&sz=w800';
+        }
+        // Fallback to placeholder
+        return 'assets/images/placeholder/project-' + (index + 1) + '.jpg';
     }
 
     // Update project card images from config
     function updateProjectImages(projects) {
-        projects.forEach(function(project) {
-            // Find project card by data attribute or class
-            const cards = document.querySelectorAll('.project-card');
-            cards.forEach(function(card, index) {
-                if (projects[index]) {
-                    const projectData = projects[index];
-                    const img = card.querySelector('img');
+        var cards = document.querySelectorAll('.project-card');
+        cards.forEach(function(card, index) {
+            if (projects[index]) {
+                var projectData = projects[index];
+                var img = card.querySelector('img');
 
-                    if (img && projectData.imageId) {
-                        const driveUrl = getGoogleDriveImageUrl(projectData.imageId);
-                        if (driveUrl) {
-                            img.src = driveUrl;
-                            img.onerror = function() {
-                                // Fallback to original if Google Drive image fails
-                                this.src = projectData.imageFallback || 'assets/images/placeholder/project-' + (index + 1) + '.jpg';
-                            };
-                        }
-                    }
-
-                    // Update title and location if provided
-                    const titleEl = card.querySelector('.project-card__title');
-                    const locationEl = card.querySelector('.project-card__location');
-
-                    if (titleEl && projectData.title) {
-                        titleEl.textContent = projectData.title;
-                    }
-                    if (locationEl && projectData.location) {
-                        locationEl.textContent = projectData.location;
-                    }
+                if (img) {
+                    var imageUrl = getImageUrl(projectData, index);
+                    img.src = imageUrl;
+                    img.onerror = function() {
+                        // Fallback to placeholder if image fails
+                        this.src = 'assets/images/placeholder/project-' + (index + 1) + '.jpg';
+                    };
                 }
-            });
+
+                // Update title and location if provided
+                var titleEl = card.querySelector('.project-card__title');
+                var locationEl = card.querySelector('.project-card__location');
+
+                if (titleEl && projectData.title) {
+                    titleEl.textContent = projectData.title;
+                }
+                if (locationEl && projectData.location) {
+                    locationEl.textContent = projectData.location;
+                }
+            }
         });
     }
 
     // Initialize dynamic gallery section
     function initDynamicGallery(galleryItems) {
-        const galleryContainer = document.getElementById('dynamic-gallery');
+        var galleryContainer = document.getElementById('dynamic-gallery');
         if (!galleryContainer) return;
 
-        const validItems = galleryItems.filter(function(item) {
-            return item.imageId && item.imageId.trim() !== '';
+        var validItems = galleryItems.filter(function(item) {
+            if (galleryMode === 'local') {
+                return item.localImage && item.localImage.trim() !== '';
+            }
+            return item.gdriveId && item.gdriveId.trim() !== '';
         });
 
         if (validItems.length === 0) {
@@ -581,17 +591,17 @@
             return;
         }
 
-        const grid = galleryContainer.querySelector('.gallery__grid');
+        var grid = galleryContainer.querySelector('.gallery__grid');
         if (!grid) return;
 
         // Clear existing items
         grid.innerHTML = '';
 
-        validItems.forEach(function(item) {
-            const imageUrl = getGoogleDriveImageUrl(item.imageId);
+        validItems.forEach(function(item, index) {
+            var imageUrl = getImageUrl(item, index);
             if (!imageUrl) return;
 
-            const galleryItem = document.createElement('div');
+            var galleryItem = document.createElement('div');
             galleryItem.className = 'gallery__item';
             galleryItem.innerHTML =
                 '<img src="' + imageUrl + '" alt="' + (item.title || 'Gallery image') + '" loading="lazy">' +

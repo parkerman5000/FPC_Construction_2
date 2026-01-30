@@ -1,7 +1,7 @@
 {
-  "googleDriveFolderId": "1mtkzCuw_zNsbeDa5N_P5yDJTL6lhLrF-",
+  "mode": "local",
+  "instructions": "To add photos: 1) Upload images to assets/images/projects/ folder, 2) Add the filename to 'localImage' field below. For Google Drive: set mode to 'gdrive' and use 'gdriveId' field.",
   "googleDriveFolderUrl": "https://drive.google.com/drive/folders/1mtkzCuw_zNsbeDa5N_P5yDJTL6lhLrF-",
-  "instructions": "To add photos: 1) Upload to Google Drive folder, 2) Right-click image -> Share -> Anyone with link, 3) Copy the file ID from the URL and add below",
   "projects": [
     {
       "id": "project-1",
@@ -9,8 +9,8 @@
       "category": "driveways",
       "location": "North Augusta, SC",
       "description": "Complete concrete driveway installation",
-      "imageId": "",
-      "imageFallback": "assets/images/placeholder/project-1.jpg"
+      "localImage": "project-1.jpg",
+      "gdriveId": ""
     },
     {
       "id": "project-2",
@@ -18,8 +18,8 @@
       "category": "land-clearing",
       "location": "Aiken, SC",
       "description": "Full land clearing and site preparation",
-      "imageId": "",
-      "imageFallback": "assets/images/placeholder/project-2.jpg"
+      "localImage": "project-2.jpg",
+      "gdriveId": ""
     },
     {
       "id": "project-3",
@@ -27,8 +27,8 @@
       "category": "foundations",
       "location": "Augusta, GA",
       "description": "Commercial building foundation construction",
-      "imageId": "",
-      "imageFallback": "assets/images/placeholder/project-3.jpg"
+      "localImage": "project-3.jpg",
+      "gdriveId": ""
     },
     {
       "id": "project-4",
@@ -36,8 +36,8 @@
       "category": "grading",
       "location": "Evans, GA",
       "description": "Complete site grading and preparation",
-      "imageId": "",
-      "imageFallback": "assets/images/placeholder/project-4.jpg"
+      "localImage": "project-4.jpg",
+      "gdriveId": ""
     },
     {
       "id": "project-5",
@@ -45,8 +45,8 @@
       "category": "driveways",
       "location": "Martinez, GA",
       "description": "Decorative stamped concrete driveway",
-      "imageId": "",
-      "imageFallback": "assets/images/placeholder/project-5.jpg"
+      "localImage": "project-5.jpg",
+      "gdriveId": ""
     },
     {
       "id": "project-6",
@@ -54,28 +54,28 @@
       "category": "land-clearing",
       "location": "North Augusta, SC",
       "description": "Commercial property land clearing",
-      "imageId": "",
-      "imageFallback": "assets/images/placeholder/project-6.jpg"
+      "localImage": "project-6.jpg",
+      "gdriveId": ""
     }
   ],
   "gallery": [
     {
       "id": "gallery-1",
       "title": "Project Photo 1",
-      "imageId": "",
-      "description": "Add Google Drive file ID here"
+      "localImage": "",
+      "gdriveId": ""
     },
     {
       "id": "gallery-2",
       "title": "Project Photo 2",
-      "imageId": "",
-      "description": "Add Google Drive file ID here"
+      "localImage": "",
+      "gdriveId": ""
     },
     {
       "id": "gallery-3",
       "title": "Project Photo 3",
-      "imageId": "",
-      "description": "Add Google Drive file ID here"
+      "localImage": "",
+      "gdriveId": ""
     }
   ]
 }
