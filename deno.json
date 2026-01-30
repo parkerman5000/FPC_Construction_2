@@ -1,0 +1,8 @@
+{
+  "lint": {
+    "exclude": ["assets/js/**/*"]
+  },
+  "test": {
+    "exclude": ["assets/**/*"]
+  }
+}
