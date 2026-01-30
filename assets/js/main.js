@@ -28,6 +28,7 @@
         initContactForm();
         initScrollHeader();
         updateCurrentYear();
+        initGoogleDriveGallery();
     });
 
     // ============================================
@@ -490,6 +491,155 @@
         if (yearElement) {
             yearElement.textContent = new Date().getFullYear();
         }
+    }
+
+    // ============================================
+    // Google Drive Gallery Integration
+    // ============================================
+    function initGoogleDriveGallery() {
+        // Load gallery configuration
+        fetch('assets/data/gallery-config.json')
+            .then(function(response) {
+                if (!response.ok) {
+                    console.log('Gallery config not found, using default images');
+                    return null;
+                }
+                return response.json();
+            })
+            .then(function(config) {
+                if (!config) return;
+
+                // Update project images from config
+                if (config.projects && config.projects.length > 0) {
+                    updateProjectImages(config.projects);
+                }
+
+                // Initialize additional gallery if present
+                if (config.gallery && config.gallery.length > 0) {
+                    initDynamicGallery(config.gallery);
+                }
+            })
+            .catch(function(error) {
+                console.log('Gallery config loading skipped:', error.message);
+            });
+    }
+
+    // Convert Google Drive file ID to embeddable image URL
+    function getGoogleDriveImageUrl(fileId) {
+        if (!fileId || fileId.trim() === '') return null;
+        // Google Drive direct image URL format
+        return 'https://drive.google.com/thumbnail?id=' + fileId + '&sz=w800';
+    }
+
+    // Update project card images from config
+    function updateProjectImages(projects) {
+        projects.forEach(function(project) {
+            // Find project card by data attribute or class
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(function(card, index) {
+                if (projects[index]) {
+                    const projectData = projects[index];
+                    const img = card.querySelector('img');
+
+                    if (img && projectData.imageId) {
+                        const driveUrl = getGoogleDriveImageUrl(projectData.imageId);
+                        if (driveUrl) {
+                            img.src = driveUrl;
+                            img.onerror = function() {
+                                // Fallback to original if Google Drive image fails
+                                this.src = projectData.imageFallback || 'assets/images/placeholder/project-' + (index + 1) + '.jpg';
+                            };
+                        }
+                    }
+
+                    // Update title and location if provided
+                    const titleEl = card.querySelector('.project-card__title');
+                    const locationEl = card.querySelector('.project-card__location');
+
+                    if (titleEl && projectData.title) {
+                        titleEl.textContent = projectData.title;
+                    }
+                    if (locationEl && projectData.location) {
+                        locationEl.textContent = projectData.location;
+                    }
+                }
+            });
+        });
+    }
+
+    // Initialize dynamic gallery section
+    function initDynamicGallery(galleryItems) {
+        const galleryContainer = document.getElementById('dynamic-gallery');
+        if (!galleryContainer) return;
+
+        const validItems = galleryItems.filter(function(item) {
+            return item.imageId && item.imageId.trim() !== '';
+        });
+
+        if (validItems.length === 0) {
+            galleryContainer.style.display = 'none';
+            return;
+        }
+
+        const grid = galleryContainer.querySelector('.gallery__grid');
+        if (!grid) return;
+
+        // Clear existing items
+        grid.innerHTML = '';
+
+        validItems.forEach(function(item) {
+            const imageUrl = getGoogleDriveImageUrl(item.imageId);
+            if (!imageUrl) return;
+
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery__item';
+            galleryItem.innerHTML =
+                '<img src="' + imageUrl + '" alt="' + (item.title || 'Gallery image') + '" loading="lazy">' +
+                '<div class="gallery__overlay">' +
+                    '<span class="gallery__title">' + (item.title || '') + '</span>' +
+                '</div>';
+
+            // Add lightbox click handler
+            galleryItem.addEventListener('click', function() {
+                openLightbox(imageUrl, item.title);
+            });
+
+            grid.appendChild(galleryItem);
+        });
+
+        galleryContainer.style.display = 'block';
+    }
+
+    // Simple lightbox for gallery images
+    function openLightbox(imageUrl, title) {
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML =
+            '<div class="lightbox__backdrop"></div>' +
+            '<div class="lightbox__content">' +
+                '<button class="lightbox__close" aria-label="Close">&times;</button>' +
+                '<img src="' + imageUrl + '" alt="' + (title || 'Gallery image') + '">' +
+                (title ? '<p class="lightbox__title">' + title + '</p>' : '') +
+            '</div>';
+
+        document.body.appendChild(lightbox);
+        document.body.style.overflow = 'hidden';
+
+        // Close handlers
+        var closeHandler = function() {
+            lightbox.remove();
+            document.body.style.overflow = '';
+        };
+
+        lightbox.querySelector('.lightbox__backdrop').addEventListener('click', closeHandler);
+        lightbox.querySelector('.lightbox__close').addEventListener('click', closeHandler);
+
+        document.addEventListener('keydown', function escHandler(e) {
+            if (e.key === 'Escape') {
+                closeHandler();
+                document.removeEventListener('keydown', escHandler);
+            }
+        });
     }
 
 })();

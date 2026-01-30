@@ -1,0 +1,81 @@
+{
+  "googleDriveFolderId": "1mtkzCuw_zNsbeDa5N_P5yDJTL6lhLrF-",
+  "googleDriveFolderUrl": "https://drive.google.com/drive/folders/1mtkzCuw_zNsbeDa5N_P5yDJTL6lhLrF-",
+  "instructions": "To add photos: 1) Upload to Google Drive folder, 2) Right-click image -> Share -> Anyone with link, 3) Copy the file ID from the URL and add below",
+  "projects": [
+    {
+      "id": "project-1",
+      "title": "Residential Driveway",
+      "category": "driveways",
+      "location": "North Augusta, SC",
+      "description": "Complete concrete driveway installation",
+      "imageId": "",
+      "imageFallback": "assets/images/placeholder/project-1.jpg"
+    },
+    {
+      "id": "project-2",
+      "title": "2-Acre Lot Clearing",
+      "category": "land-clearing",
+      "location": "Aiken, SC",
+      "description": "Full land clearing and site preparation",
+      "imageId": "",
+      "imageFallback": "assets/images/placeholder/project-2.jpg"
+    },
+    {
+      "id": "project-3",
+      "title": "Commercial Foundation",
+      "category": "foundations",
+      "location": "Augusta, GA",
+      "description": "Commercial building foundation construction",
+      "imageId": "",
+      "imageFallback": "assets/images/placeholder/project-3.jpg"
+    },
+    {
+      "id": "project-4",
+      "title": "Site Preparation",
+      "category": "grading",
+      "location": "Evans, GA",
+      "description": "Complete site grading and preparation",
+      "imageId": "",
+      "imageFallback": "assets/images/placeholder/project-4.jpg"
+    },
+    {
+      "id": "project-5",
+      "title": "Stamped Concrete",
+      "category": "driveways",
+      "location": "Martinez, GA",
+      "description": "Decorative stamped concrete driveway",
+      "imageId": "",
+      "imageFallback": "assets/images/placeholder/project-5.jpg"
+    },
+    {
+      "id": "project-6",
+      "title": "Commercial Lot",
+      "category": "land-clearing",
+      "location": "North Augusta, SC",
+      "description": "Commercial property land clearing",
+      "imageId": "",
+      "imageFallback": "assets/images/placeholder/project-6.jpg"
+    }
+  ],
+  "gallery": [
+    {
+      "id": "gallery-1",
+      "title": "Project Photo 1",
+      "imageId": "",
+      "description": "Add Google Drive file ID here"
+    },
+    {
+      "id": "gallery-2",
+      "title": "Project Photo 2",
+      "imageId": "",
+      "description": "Add Google Drive file ID here"
+    },
+    {
+      "id": "gallery-3",
+      "title": "Project Photo 3",
+      "imageId": "",
+      "description": "Add Google Drive file ID here"
+    }
+  ]
+}
