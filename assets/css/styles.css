@@ -458,7 +458,7 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     padding: calc(var(--header-height) + var(--spacing-8)) 0 var(--spacing-8);
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    background-image: url('https://drive.google.com/thumbnail?id=1PSosulcjAyAIIxGgbSmZw13aawcQbMwF&sz=w1920');
+    background-image: url('../images/placeholder/hero-bg.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -1012,7 +1012,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     padding: var(--spacing-16) 0;
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    background-image: url('https://drive.google.com/thumbnail?id=1-m2kRxIZFetHDvQ9sAZ_3xmfYGcykCTu&sz=w1920');
+    background-image: url('../images/placeholder/cta-bg.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
