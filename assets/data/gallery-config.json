@@ -1,6 +1,6 @@
 {
-  "mode": "gdrive",
-  "instructions": "Photos are loaded from Google Drive. To update: upload to the shared folder and update the gdriveId fields below.",
+  "mode": "local",
+  "instructions": "Photos are loaded locally from assets/images/projects/. Upload images there and update localImage fields.",
   "googleDriveFolderUrl": "https://drive.google.com/drive/folders/1mtkzCuw_zNsbeDa5N_P5yDJTL6lhLrF-",
   "projects": [
     {
@@ -9,7 +9,7 @@
       "category": "driveways",
       "location": "North Augusta, SC",
       "description": "Complete concrete driveway installation",
-      "localImage": "",
+      "localImage": "project-1.jpg",
       "gdriveId": "1F2InCX56GTTn0gtvSCrPfs8yjLj3dtsK"
     },
     {
@@ -18,7 +18,7 @@
       "category": "septic",
       "location": "Aiken, SC",
       "description": "Professional septic system installation",
-      "localImage": "",
+      "localImage": "project-2.jpg",
       "gdriveId": "1ggQpCE07uJVBVLWAjQVpaVVI0OgblHZP"
     },
     {
@@ -27,7 +27,7 @@
       "category": "foundations",
       "location": "Augusta, GA",
       "description": "Commercial building foundation construction",
-      "localImage": "",
+      "localImage": "project-3.jpg",
       "gdriveId": "1y8RHyRfIJXQYvjF-ZejSju-PpNCL7bYQ"
     },
     {
@@ -36,7 +36,7 @@
       "category": "septic",
       "location": "Evans, GA",
       "description": "Residential septic system project",
-      "localImage": "",
+      "localImage": "project-4.jpg",
       "gdriveId": "1UV67EW7xC1HokCyAP7z0SpNm7YIDOUrM"
     },
     {
@@ -45,7 +45,7 @@
       "category": "driveways",
       "location": "Martinez, GA",
       "description": "Decorative concrete driveway",
-      "localImage": "",
+      "localImage": "project-5.jpg",
       "gdriveId": "1Bh8-ostOzxSPVq-DZ9mZS2UD-3sF9IDN"
     },
     {
@@ -54,7 +54,7 @@
       "category": "land-clearing",
       "location": "North Augusta, SC",
       "description": "Commercial property land clearing",
-      "localImage": "",
+      "localImage": "project-6.jpg",
       "gdriveId": "1V9wU5eXTu4Yu4QDKcU8sRLNIUWNE6A3T"
     }
   ],
@@ -63,70 +63,70 @@
       "id": "gallery-1",
       "title": "Septic Tank Installation",
       "category": "septic",
-      "localImage": "",
+      "localImage": "gallery-1.jpg",
       "gdriveId": "1HXDw5izzjiqZxcuh5pLU5Y-P1sop0ZL_"
     },
     {
       "id": "gallery-2",
       "title": "Septic System Work",
       "category": "septic",
-      "localImage": "",
+      "localImage": "gallery-2.jpg",
       "gdriveId": "1qq8xB7nZbXZ4gq5RRbtkCMjUEy8JWZXj"
     },
     {
       "id": "gallery-3",
       "title": "Site Preparation",
       "category": "grading",
-      "localImage": "",
+      "localImage": "gallery-3.jpg",
       "gdriveId": "1FEVczs8OFJW3qiArQ1bjnphC76pLNRkB"
     },
     {
       "id": "gallery-4",
       "title": "Foundation Construction",
       "category": "foundations",
-      "localImage": "",
+      "localImage": "gallery-4.jpg",
       "gdriveId": "1cyJOpH3yBtaANZ6DNHNW6Zgdofq755tK"
     },
     {
       "id": "gallery-5",
       "title": "Foundation Project",
       "category": "foundations",
-      "localImage": "",
+      "localImage": "gallery-5.jpg",
       "gdriveId": "1CK6-GU2H3urWmYD7xTVzK5Ql73XLQDpw"
     },
     {
       "id": "gallery-6",
       "title": "Foundation Work",
       "category": "foundations",
-      "localImage": "",
+      "localImage": "gallery-6.jpg",
       "gdriveId": "165wUrhZPgJi0XLJ_ZXx56BL4_Y5R8yWE"
     },
     {
       "id": "gallery-7",
       "title": "Septic Project",
       "category": "septic",
-      "localImage": "",
+      "localImage": "gallery-7.jpg",
       "gdriveId": "1YWOMJX512fNGHb1fsrB1tQpEx3u2Jfgt"
     },
     {
       "id": "gallery-8",
       "title": "Septic Installation",
       "category": "septic",
-      "localImage": "",
+      "localImage": "gallery-8.jpg",
       "gdriveId": "18lQ1Ne0pmgY7Ft-7zqZGg22ct9-irk16"
     },
     {
       "id": "gallery-9",
       "title": "Septic Work",
       "category": "septic",
-      "localImage": "",
+      "localImage": "gallery-9.jpg",
       "gdriveId": "1dM4MaV9rA363SGZZHV3UPI07dxI--Y-4"
     },
     {
       "id": "gallery-10",
       "title": "Foundation Project",
       "category": "foundations",
-      "localImage": "",
+      "localImage": "gallery-10.jpg",
       "gdriveId": "1gN9FoS651bLqO8Lk0GbSalGvBFtcrAT6"
     }
   ]
