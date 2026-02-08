@@ -153,6 +153,45 @@
     }
 
     // ============================================
+    // Reviews Data (randomized on each page load)
+    // ============================================
+    var reviewsData = [
+        { name: 'John Mitchell', role: 'Homeowner', stars: 5, quote: 'Our new driveway is absolutely stunning! The crew was professional from start to finish. They arrived on time, worked efficiently, and left the site spotless. Couldn\'t be happier with the results.' },
+        { name: 'Sarah Reynolds', role: 'Business Owner', stars: 5, quote: 'Outstanding work on our commercial project! FPC Construction delivered on time and within budget. Their attention to detail and professionalism made the entire process smooth and stress-free.' },
+        { name: 'David Thompson', role: 'Homeowner', stars: 5, quote: 'The stamped concrete patio looks amazing and has transformed our backyard into an outdoor oasis. FPC\'s team was knowledgeable, friendly, and truly cared about getting every detail right.' },
+        { name: 'Michael Johnson', role: 'Homeowner', stars: 5, quote: 'Best concrete contractor in the area! They repaired our damaged foundation and now it looks better than new. Professional, reliable, and reasonably priced. Highly recommend FPC Construction!' },
+        { name: 'Amanda Collins', role: 'Homeowner', stars: 5, quote: 'FPC cleared our 2-acre lot in just two days. The land was perfectly graded and ready for our new build. Their equipment operators really know what they\'re doing. Would absolutely hire them again.' },
+        { name: 'Robert Williams', role: 'Property Developer', stars: 5, quote: 'We\'ve used FPC Construction on three separate projects now. Septic installation, grading, and a commercial driveway. Every single time they deliver quality work on schedule. They\'re our go-to contractor.' },
+        { name: 'Lisa Patterson', role: 'Homeowner', stars: 5, quote: 'Our privacy fence looks incredible! The crew was respectful of our property and finished ahead of schedule. The fence is solid, level, and exactly what we wanted. Five stars all the way.' },
+        { name: 'James Carter', role: 'Homeowner', stars: 5, quote: 'Had them install a new septic system for our rural property. Everything passed inspection on the first try. Fair pricing and they explained every step of the process. True professionals.' },
+        { name: 'Karen Davis', role: 'Homeowner', stars: 5, quote: 'FPC Construction saved us after another contractor left our grading half-done. They came in, fixed the mess, and completed the job beautifully. Honest, hardworking, and dependable.' },
+        { name: 'Thomas Wright', role: 'Business Owner', stars: 5, quote: 'Hired FPC for our new warehouse foundation. Rock-solid work and they handled all the permitting headaches for us. The kind of contractor you can trust with a handshake. Highly recommend.' }
+    ];
+
+    function shuffleArray(array) {
+        var shuffled = array.slice();
+        for (var i = shuffled.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = shuffled[i];
+            shuffled[i] = shuffled[j];
+            shuffled[j] = temp;
+        }
+        return shuffled;
+    }
+
+    function generateStarsHtml(count) {
+        var html = '';
+        for (var i = 0; i < count; i++) {
+            html += '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+        }
+        return html;
+    }
+
+    function getInitials(name) {
+        return name.split(' ').map(function(n) { return n[0]; }).join('');
+    }
+
+    // ============================================
     // Testimonials Carousel
     // ============================================
     function initTestimonialsCarousel() {
@@ -160,17 +199,40 @@
         if (!carousel) return;
 
         const track = carousel.querySelector('.testimonials__track');
-        const cards = carousel.querySelectorAll('.testimonial-card');
         const prevBtn = carousel.querySelector('.testimonials__btn--prev');
         const nextBtn = carousel.querySelector('.testimonials__btn--next');
         const dotsContainer = carousel.querySelector('.testimonials__dots');
 
-        if (!track || cards.length === 0) return;
+        if (!track) return;
+
+        // Shuffle reviews and build cards dynamically
+        var shuffledReviews = shuffleArray(reviewsData);
+        track.innerHTML = '';
+
+        shuffledReviews.forEach(function(review) {
+            var card = document.createElement('div');
+            card.className = 'testimonial-card';
+            card.innerHTML =
+                '<div class="testimonial-card__stars">' + generateStarsHtml(review.stars) + '</div>' +
+                '<p class="testimonial-card__quote">"' + review.quote + '"</p>' +
+                '<div class="testimonial-card__author">' +
+                    '<div class="testimonial-card__avatar">' + getInitials(review.name) + '</div>' +
+                    '<div class="testimonial-card__info">' +
+                        '<span class="testimonial-card__name">' + review.name + '</span>' +
+                        '<span class="testimonial-card__role">' + review.role + '</span>' +
+                    '</div>' +
+                '</div>';
+            track.appendChild(card);
+        });
+
+        var cards = track.querySelectorAll('.testimonial-card');
+        if (cards.length === 0) return;
 
         let currentIndex = 0;
         const totalCards = cards.length;
 
         // Create dots
+        dotsContainer.innerHTML = '';
         cards.forEach(function(_, index) {
             const dot = document.createElement('button');
             dot.classList.add('testimonials__dot');
