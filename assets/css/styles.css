@@ -1005,6 +1005,38 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+/* Google Review CTA */
+.testimonials__cta {
+    text-align: center;
+    margin-top: var(--spacing-8);
+}
+
+.btn--google-review {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4) var(--spacing-8);
+    background: var(--color-white);
+    color: var(--color-gray-800);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btn--google-review:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.btn--google-review svg {
+    flex-shrink: 0;
+}
+
 /* ============================================
    CTA Banner Section
    ============================================ */
