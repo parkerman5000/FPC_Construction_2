@@ -1,7 +1,8 @@
 {
-  "mode": "local",
-  "instructions": "Photos are loaded locally from assets/images/projects/. Upload images there and update localImage fields.",
-  "googleDriveFolderUrl": "https://drive.google.com/drive/folders/1mtkzCuw_zNsbeDa5N_P5yDJTL6lhLrF-",
+  "mode": "supabase",
+  "supabaseUrl": "https://ogiipdsgjtiprmjrnyks.supabase.co",
+  "supabaseBucket": "project-photos",
+  "instructions": "Photos are served from Supabase Storage. Upload images to the 'project-photos' bucket and update supabaseFile fields.",
   "projects": [
     {
       "id": "project-1",
@@ -9,6 +10,7 @@
       "category": "driveways",
       "location": "North Augusta, SC",
       "description": "Complete concrete driveway installation",
+      "supabaseFile": "project-1.jpg",
       "localImage": "project-1.jpg",
       "gdriveId": "1F2InCX56GTTn0gtvSCrPfs8yjLj3dtsK"
     },
@@ -18,6 +20,7 @@
       "category": "septic",
       "location": "Aiken, SC",
       "description": "Professional septic system installation",
+      "supabaseFile": "project-2.jpg",
       "localImage": "project-2.jpg",
       "gdriveId": "1ggQpCE07uJVBVLWAjQVpaVVI0OgblHZP"
     },
@@ -27,6 +30,7 @@
       "category": "foundations",
       "location": "Augusta, GA",
       "description": "Commercial building foundation construction",
+      "supabaseFile": "project-3.jpg",
       "localImage": "project-3.jpg",
       "gdriveId": "1y8RHyRfIJXQYvjF-ZejSju-PpNCL7bYQ"
     },
@@ -36,6 +40,7 @@
       "category": "septic",
       "location": "Evans, GA",
       "description": "Residential septic system project",
+      "supabaseFile": "project-4.jpg",
       "localImage": "project-4.jpg",
       "gdriveId": "1UV67EW7xC1HokCyAP7z0SpNm7YIDOUrM"
     },
@@ -45,6 +50,7 @@
       "category": "driveways",
       "location": "Martinez, GA",
       "description": "Decorative concrete driveway",
+      "supabaseFile": "project-5.jpg",
       "localImage": "project-5.jpg",
       "gdriveId": "1Bh8-ostOzxSPVq-DZ9mZS2UD-3sF9IDN"
     },
@@ -54,6 +60,7 @@
       "category": "land-clearing",
       "location": "North Augusta, SC",
       "description": "Commercial property land clearing",
+      "supabaseFile": "project-6.jpg",
       "localImage": "project-6.jpg",
       "gdriveId": "1V9wU5eXTu4Yu4QDKcU8sRLNIUWNE6A3T"
     }

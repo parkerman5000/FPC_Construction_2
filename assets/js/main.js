@@ -556,9 +556,10 @@
     }
 
     // ============================================
-    // Gallery Integration (Local + Google Drive)
+    // Gallery Integration (Local, Google Drive, Supabase)
     // ============================================
-    var galleryMode = 'local'; // 'local' or 'gdrive'
+    var galleryMode = 'local';
+    var supabaseStorageUrl = '';
 
     function initGoogleDriveGallery() {
         // Load gallery configuration
@@ -576,6 +577,11 @@
                 // Set mode from config
                 galleryMode = config.mode || 'local';
 
+                // Set Supabase URL if in supabase mode
+                if (galleryMode === 'supabase' && config.supabaseUrl && config.supabaseBucket) {
+                    supabaseStorageUrl = config.supabaseUrl + '/storage/v1/object/public/' + config.supabaseBucket + '/';
+                }
+
                 // Update project images from config
                 if (config.projects && config.projects.length > 0) {
                     updateProjectImages(config.projects);
@@ -591,8 +597,15 @@
             });
     }
 
-    // Get image URL based on mode (local or Google Drive)
+    // Get image URL based on mode (local, Google Drive, or Supabase)
     function getImageUrl(item, index) {
+        // Supabase mode: use public storage URL
+        if (galleryMode === 'supabase' && supabaseStorageUrl) {
+            var filename = item.supabaseFile || item.localImage;
+            if (filename && filename.trim() !== '') {
+                return supabaseStorageUrl + filename;
+            }
+        }
         // Local mode: use local image path
         if (galleryMode === 'local' && item.localImage && item.localImage.trim() !== '') {
             return 'assets/images/projects/' + item.localImage;
