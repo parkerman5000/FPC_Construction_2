@@ -10,7 +10,7 @@
       "category": "driveways",
       "location": "North Augusta, SC",
       "description": "Complete concrete driveway installation",
-      "supabaseFile": "project-1.jpg",
+      "supabaseFile": "opt-project-1.jpg",
       "localImage": "project-1.jpg",
       "gdriveId": "1F2InCX56GTTn0gtvSCrPfs8yjLj3dtsK"
     },
@@ -20,7 +20,7 @@
       "category": "septic",
       "location": "Aiken, SC",
       "description": "Professional septic system installation",
-      "supabaseFile": "project-2.jpg",
+      "supabaseFile": "opt-project-2.jpg",
       "localImage": "project-2.jpg",
       "gdriveId": "1ggQpCE07uJVBVLWAjQVpaVVI0OgblHZP"
     },
@@ -40,7 +40,7 @@
       "category": "septic",
       "location": "Evans, GA",
       "description": "Residential septic system project",
-      "supabaseFile": "project-4.jpg",
+      "supabaseFile": "opt-project-4.jpg",
       "localImage": "project-4.jpg",
       "gdriveId": "1UV67EW7xC1HokCyAP7z0SpNm7YIDOUrM"
     },
