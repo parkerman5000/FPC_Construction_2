@@ -1,8 +1,8 @@
 {
-  "mode": "supabase",
+  "mode": "gdrive",
   "supabaseUrl": "https://ogiipdsgjtiprmjrnyks.supabase.co",
   "supabaseBucket": "project-photos",
-  "instructions": "Photos are served from Supabase Storage. Upload images to the 'project-photos' bucket and update supabaseFile fields.",
+  "instructions": "Photos are served from Google Drive thumbnails via gdriveId fields. Supabase config retained for future use.",
   "projects": [
     {
       "id": "project-1",
