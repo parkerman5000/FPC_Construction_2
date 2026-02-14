@@ -1,0 +1,5 @@
+# FPC Construction LLC - fpcconstructions.com
+User-agent: *
+Allow: /
+
+Sitemap: https://fpcconstructions.com/sitemap.xml
