@@ -29,6 +29,7 @@
         initScrollHeader();
         updateCurrentYear();
         initGoogleDriveGallery();
+        initBrokenImageFallback();
     });
 
     // ============================================
@@ -553,6 +554,18 @@
         if (yearElement) {
             yearElement.textContent = new Date().getFullYear();
         }
+    }
+
+    // ============================================
+    // Broken Image Fallback
+    // ============================================
+    function initBrokenImageFallback() {
+        document.querySelectorAll('img').forEach(function(img) {
+            img.addEventListener('error', function() {
+                this.classList.add('img-broken');
+                this.alt = 'Photo coming soon';
+            });
+        });
     }
 
     // ============================================

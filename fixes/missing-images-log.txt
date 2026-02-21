@@ -1,0 +1,44 @@
+FPC Construction — Missing/Broken Image Audit
+Date: 2026-02-20
+
+SITE TYPE: Static HTML (GitHub Pages) — no database, no wp-content
+
+=== PLACEHOLDER IMAGES (exist but are stock/generic) ===
+
+All 8 placeholder images exist in the repo at assets/images/placeholder/:
+  - hero-bg.jpg         — Referenced in styles.css (.hero background-image)
+  - about-team.jpg      — Referenced in index.html (About section)
+  - cta-bg.jpg          — Referenced in styles.css (.cta-banner background-image)
+  - project-1.jpg       — Referenced in index.html (Projects grid card 1)
+  - project-2.jpg       — Referenced in index.html (Projects grid card 2)
+  - project-3.jpg       — Referenced in index.html (Projects grid card 3)
+  - project-4.jpg       — Referenced in index.html (Projects grid card 4)
+  - project-5.jpg       — Referenced in index.html (Projects grid card 5)
+  - project-6.jpg       — Referenced in index.html (Projects grid card 6)
+
+NOTE: These are placeholder/stock images, not actual FPC project photos.
+The gallery-config.json can override project card images at runtime via JS.
+
+=== REAL PROJECT PHOTOS ===
+
+Directory: assets/images/projects/
+Status: EMPTY (contains only .gitkeep)
+Action needed: Run the FPC Image Picker tool (tools/image-picker/) to process
+and place real construction photos here, then update gallery-config.json.
+
+=== BROKEN/HARDCODED URL CHECK ===
+
+No hardcoded staging, localhost, or mismatched domain URLs found.
+All image references use relative paths (assets/images/...) or are
+loaded dynamically from gallery-config.json (Google Drive / Supabase).
+
+=== ZERO-BYTE / SYMLINK CHECK ===
+
+No zero-byte files found.
+No broken symlinks found.
+
+=== FALLBACK BEHAVIOR ===
+
+Added JS onerror handler: broken images get .img-broken class which
+displays branded #1a1a2e background with "Photo coming soon" text.
+Gallery images already had onerror fallback to placeholder images (in main.js).

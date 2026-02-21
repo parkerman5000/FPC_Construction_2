@@ -1,0 +1,16 @@
+-- FPC Construction — Broken Image URL Fix
+-- Date: 2026-02-20
+--
+-- NOTE: This file is NOT APPLICABLE to the current site.
+-- fpcconstructions.com is a static HTML site on GitHub Pages.
+-- There is no WordPress database, no wp_posts table, no SQL to run.
+--
+-- All image URLs in the site use relative paths (assets/images/...)
+-- or are loaded dynamically from gallery-config.json.
+-- No hardcoded staging/localhost URLs were found.
+--
+-- This file exists as a placeholder per the deliverables spec.
+-- If the site ever migrates to WordPress, URL replacements would go here.
+
+-- Example (not needed):
+-- UPDATE wp_posts SET post_content = REPLACE(post_content, 'http://staging.fpcconstructions.com', 'https://fpcconstructions.com') WHERE post_content LIKE '%staging.fpcconstructions.com%';

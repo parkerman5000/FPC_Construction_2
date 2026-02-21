@@ -137,6 +137,30 @@ img, picture, video, canvas, svg {
     height: auto;
 }
 
+/* Fix EXIF orientation for mobile-uploaded photos */
+img {
+    image-orientation: from-image;
+}
+
+/* Broken image fallback — shows branded placeholder */
+img.img-broken {
+    position: relative;
+    min-height: 120px;
+    background: #1a1a2e;
+}
+img.img-broken::after {
+    content: 'Photo coming soon';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    background: #1a1a2e;
+}
+
 input, button, textarea, select {
     font: inherit;
 }
@@ -464,10 +488,11 @@ h1, h2, h3, h4, h5, h6 {
     background-attachment: fixed;
 }
 
+/* Hero overlay — reduced opacity to show background photo */
 .hero__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(26, 39, 68, 0.9) 0%, rgba(15, 26, 46, 0.95) 100%);
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.4) 0%, rgba(15, 26, 46, 0.45) 100%);
 }
 
 .hero__content {
@@ -481,7 +506,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: var(--font-size-4xl);
     color: var(--color-white);
     margin-bottom: var(--spacing-4);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .hero__subtitle {
@@ -489,6 +514,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-gray-300);
     max-width: 600px;
     margin: 0 auto var(--spacing-10);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero__stats {
@@ -1050,10 +1076,11 @@ h1, h2, h3, h4, h5, h6 {
     background-attachment: fixed;
 }
 
+/* CTA banner overlay — reduced opacity to show background photo */
 .cta-banner__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(26, 39, 68, 0.9) 0%, rgba(15, 26, 46, 0.95) 100%);
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.4) 0%, rgba(15, 26, 46, 0.45) 100%);
 }
 
 .cta-banner__content {
@@ -1066,6 +1093,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: var(--font-size-3xl);
     color: var(--color-white);
     margin-bottom: var(--spacing-4);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .cta-banner__text {
@@ -1073,6 +1101,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--color-gray-300);
     max-width: 600px;
     margin: 0 auto var(--spacing-8);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .cta-banner__buttons {
@@ -1080,6 +1109,12 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     gap: var(--spacing-4);
     align-items: center;
+}
+
+.cta-banner__subtext {
+    color: var(--color-gray-400);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-4);
 }
 
 @media (min-width: 768px) {
@@ -1222,6 +1257,29 @@ h1, h2, h3, h4, h5, h6 {
     font-size: var(--font-size-sm);
     color: var(--color-gray-500);
     text-align: center;
+}
+
+/* Mobile contact form fixes — touch targets + viewport safety */
+@media (max-width: 767px) {
+    .contact__form-wrapper {
+        padding: var(--spacing-5);
+    }
+
+    .form__input,
+    .form__select,
+    .form__textarea {
+        font-size: 16px; /* prevents iOS zoom on focus */
+        min-height: 44px;
+    }
+
+    .form__select {
+        min-height: 44px;
+    }
+
+    .btn--full {
+        min-height: 48px;
+        font-size: var(--font-size-lg);
+    }
 }
 
 @media (min-width: 768px) {
