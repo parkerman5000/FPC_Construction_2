@@ -1,5 +1,5 @@
 {
-  "mode": "gdrive",
+  "mode": "local",
   "supabaseUrl": "https://ogiipdsgjtiprmjrnyks.supabase.co",
   "supabaseBucket": "project-photos",
   "instructions": "Photos are served from Google Drive thumbnails via gdriveId fields. Supabase config retained for future use.",
@@ -135,6 +135,90 @@
       "category": "foundations",
       "localImage": "gallery-10.jpg",
       "gdriveId": "1gN9FoS651bLqO8Lk0GbSalGvBFtcrAT6"
+    },
+    {
+      "id": "gallery-11",
+      "title": "Construction Photo 11",
+      "category": "general",
+      "localImage": "gallery-11.jpg",
+      "gdriveId": "1-m2kRxIZFetHDvQ9sAZ_3xmfYGcykCTu"
+    },
+    {
+      "id": "gallery-12",
+      "title": "Construction Photo 12",
+      "category": "general",
+      "localImage": "gallery-12.jpg",
+      "gdriveId": "10BUE00Njka1En6A8YhuLZE4KfnWGNSE3"
+    },
+    {
+      "id": "gallery-13",
+      "title": "Construction Photo 13",
+      "category": "general",
+      "localImage": "gallery-13.jpg",
+      "gdriveId": "115yLrAwX2KZ3GL764V3PQNLYEr1e9y1D"
+    },
+    {
+      "id": "gallery-14",
+      "title": "Construction Photo 14",
+      "category": "general",
+      "localImage": "gallery-14.jpg",
+      "gdriveId": "18hzumNAm-Qa3IsvJYE3nkjaHEeiNQxpa"
+    },
+    {
+      "id": "gallery-15",
+      "title": "Construction Photo 15",
+      "category": "general",
+      "localImage": "gallery-15.jpg",
+      "gdriveId": "1PSosulcjAyAIIxGgbSmZw13aawcQbMwF"
+    },
+    {
+      "id": "gallery-16",
+      "title": "Construction Photo 16",
+      "category": "general",
+      "localImage": "gallery-16.jpg",
+      "gdriveId": "1PuuBxpGPBRorr9B-YkfsajfIvm1eBT9B"
+    },
+    {
+      "id": "gallery-17",
+      "title": "Construction Photo 17",
+      "category": "general",
+      "localImage": "gallery-17.jpg",
+      "gdriveId": "1URkraaNQ6Gx57iFBJdYWswOB0xSBaWFs"
+    },
+    {
+      "id": "gallery-18",
+      "title": "Construction Photo 18",
+      "category": "general",
+      "localImage": "gallery-18.jpg",
+      "gdriveId": "1XBG09ukSLwcdg_liaTiD6KBirgxGKcZI"
+    },
+    {
+      "id": "gallery-19",
+      "title": "Construction Photo 19",
+      "category": "general",
+      "localImage": "gallery-19.jpg",
+      "gdriveId": "1_5T4Ku3QsVyi2Y39a0LSLYKbC92zW51m"
+    },
+    {
+      "id": "gallery-20",
+      "title": "Construction Photo 20",
+      "category": "general",
+      "localImage": "gallery-20.jpg",
+      "gdriveId": "1gzblPlFopTyHqlb9LprLil_AgJN0trmS"
+    },
+    {
+      "id": "gallery-21",
+      "title": "Construction Photo 21",
+      "category": "general",
+      "localImage": "gallery-21.jpg",
+      "gdriveId": "1oDgsOaX7zuB4mnP6pnQkU_km-nEgW_kT"
+    },
+    {
+      "id": "gallery-22",
+      "title": "Construction Photo 22",
+      "category": "general",
+      "localImage": "gallery-22.jpg",
+      "gdriveId": "1qAxCNbKjbAwB8SHiCxebh5dUE9omhcoH"
     }
   ]
 }

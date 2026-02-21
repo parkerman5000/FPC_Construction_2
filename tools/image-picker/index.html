@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPC Image Picker</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <h1><span>FPC</span> Image Picker</h1>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <span>Mode: <span id="mode-badge" class="badge badge--local">LOCAL</span></span>
+      <div class="status">
+        <div id="status-dot" class="status-dot"></div>
+        <span id="status-text">Connected</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Drop Zone + Image Pool -->
+    <section id="pool-section">
+      <h2>Image Pool</h2>
+      <div id="drop-zone" class="drop-zone">
+        <p>Drag &amp; drop photos here, or click to browse</p>
+        <input type="file" id="file-input" multiple accept="image/*" style="display:none">
+      </div>
+      <div class="pool-controls">
+        <input type="text" id="new-gdrive-id" placeholder="Or paste Google Drive file ID...">
+        <button class="btn btn--primary" id="add-gdrive-btn">Add</button>
+      </div>
+      <div class="pool-grid" id="pool-grid"></div>
+    </section>
+
+    <!-- Project Slots -->
+    <section id="projects-section">
+      <h2>Project Cards (6 slots)</h2>
+      <div class="slots-grid" id="project-slots"></div>
+    </section>
+
+    <!-- Gallery Slots -->
+    <section id="gallery-section">
+      <div class="section-header">
+        <h2>Gallery Images</h2>
+        <button class="btn btn--secondary btn--small" id="add-gallery-slot-btn">+ Add Slot</button>
+      </div>
+      <div class="slots-grid" id="gallery-slots"></div>
+    </section>
+
+    <!-- Log Panel -->
+    <section>
+      <h2>Processing Log</h2>
+      <div class="log-panel active" id="log-panel">
+        <div class="log-entry log-entry--info">Ready. Drop photos or load from config.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Action Bar -->
+  <div class="action-bar">
+    <button class="btn btn--primary" id="process-all-btn">Process &amp; Save All</button>
+    <button class="btn btn--success" id="save-config-btn">Save Config</button>
+    <div class="progress-container" id="progress-container">
+      <div class="progress-bar">
+        <div class="progress-bar__fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-text" id="progress-text">0 / 0</div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
