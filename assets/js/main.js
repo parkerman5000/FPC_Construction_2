@@ -638,12 +638,19 @@
             if (projects[index]) {
                 var projectData = projects[index];
                 var img = card.querySelector('img');
+                var source = card.querySelector('source');
 
                 if (img) {
                     var imageUrl = getImageUrl(projectData, index);
                     img.src = imageUrl;
+
+                    // Update WebP source if present
+                    if (source && galleryMode === 'local' && projectData.localImage) {
+                        var webpUrl = 'assets/images/projects/' + projectData.localImage.replace('.jpg', '.webp');
+                        source.srcset = webpUrl;
+                    }
+
                     img.onerror = function() {
-                        // Fallback to placeholder if image fails
                         this.src = 'assets/images/placeholder/project-' + (index + 1) + '.jpg';
                     };
                 }
@@ -691,8 +698,22 @@
 
             var galleryItem = document.createElement('div');
             galleryItem.className = 'gallery__item';
+
+            // Build picture element with WebP source for local mode
+            var imgHtml;
+            if (galleryMode === 'local' && item.localImage) {
+                var webpUrl = 'assets/images/projects/' + item.localImage.replace('.jpg', '.webp');
+                imgHtml =
+                    '<picture>' +
+                        '<source srcset="' + webpUrl + '" type="image/webp">' +
+                        '<img src="' + imageUrl + '" alt="' + (item.title || 'Gallery image') + '" loading="lazy">' +
+                    '</picture>';
+            } else {
+                imgHtml = '<img src="' + imageUrl + '" alt="' + (item.title || 'Gallery image') + '" loading="lazy">';
+            }
+
             galleryItem.innerHTML =
-                '<img src="' + imageUrl + '" alt="' + (item.title || 'Gallery image') + '" loading="lazy">' +
+                imgHtml +
                 '<div class="gallery__overlay">' +
                     '<span class="gallery__title">' + (item.title || '') + '</span>' +
                 '</div>';
