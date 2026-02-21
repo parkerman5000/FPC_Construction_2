@@ -488,11 +488,11 @@ h1, h2, h3, h4, h5, h6 {
     background-attachment: fixed;
 }
 
-/* Hero overlay — reduced opacity to show background photo */
+/* Hero overlay — balanced opacity to show background photo with readable text */
 .hero__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(26, 39, 68, 0.4) 0%, rgba(15, 26, 46, 0.45) 100%);
+    background: linear-gradient(135deg, rgba(26, 39, 68, 0.65) 0%, rgba(15, 26, 46, 0.7) 100%);
 }
 
 .hero__content {
