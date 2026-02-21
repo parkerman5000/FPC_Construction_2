@@ -318,14 +318,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn--outline-light {
-    background-color: transparent;
-    border: 2px solid var(--color-white);
-    color: var(--color-white);
+    background: linear-gradient(135deg, #c0c0c0 0%, #f0f0f0 25%, #a8a8a8 50%, #e0e0e0 75%, #c0c0c0 100%);
+    background-size: 200% 200%;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: var(--color-primary-dark);
+    font-weight: var(--font-weight-bold);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+    animation: metallicGlint 4s ease-in-out infinite;
+}
+
+@keyframes metallicGlint {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
 .btn--outline-light:hover {
-    background-color: var(--color-white);
-    color: var(--color-primary);
+    background: linear-gradient(135deg, #d4d4d4 0%, #ffffff 25%, #c0c0c0 50%, #f0f0f0 75%, #d4d4d4 100%);
+    background-size: 200% 200%;
+    border-color: rgba(255, 255, 255, 0.9);
+    color: var(--color-primary-dark);
+    animation: metallicGlint 2s ease-in-out infinite;
 }
 
 .btn--large {
