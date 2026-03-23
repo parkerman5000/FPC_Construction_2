@@ -471,36 +471,63 @@
             });
 
             if (isValid) {
-                // Show success message
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
+                var submitBtn = form.querySelector('button[type="submit"]');
+                var originalText = submitBtn.textContent;
 
                 submitBtn.textContent = 'Sending...';
                 submitBtn.disabled = true;
 
-                // Simulate form submission (replace with actual form handling)
-                setTimeout(function() {
-                    // Create success message
-                    const successMessage = document.createElement('div');
-                    successMessage.style.cssText = 'padding: 1rem; background: #10b981; color: white; border-radius: 0.5rem; text-align: center; margin-top: 1rem;';
-                    successMessage.textContent = 'Thank you! Your message has been sent. We will contact you shortly.';
+                // Collect form data for booking service
+                var formData = {
+                    first_name: form.querySelector('#name').value.split(' ')[0],
+                    last_name: form.querySelector('#name').value.split(' ').slice(1).join(' ') || '',
+                    email: form.querySelector('#email').value,
+                    phone: form.querySelector('#phone').value.replace(/\D/g, ''),
+                    project_type: form.querySelector('#service').value,
+                    notes: form.querySelector('#message').value,
+                    language_preference: 'en',
+                    service_area: 'Website Contact Form'
+                };
 
-                    form.appendChild(successMessage);
+                // Send to booking service lead-intake endpoint
+                var bookingServiceUrl = window.FPC_BOOKING_URL || '';
+                var submitPromise;
+
+                if (bookingServiceUrl) {
+                    submitPromise = fetch(bookingServiceUrl + '/webhook/lead-intake', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    }).then(function(res) { return res.json(); });
+                } else {
+                    // Fallback: mailto if no booking service configured
+                    var subject = encodeURIComponent('New Lead: ' + formData.first_name + ' ' + formData.last_name);
+                    var body = encodeURIComponent(
+                        'Name: ' + formData.first_name + ' ' + formData.last_name +
+                        '\nEmail: ' + formData.email +
+                        '\nPhone: ' + formData.phone +
+                        '\nService: ' + formData.project_type +
+                        '\nMessage: ' + formData.notes
+                    );
+                    window.location.href = 'mailto:info@fpcconstructions.com?subject=' + subject + '&body=' + body;
+                    submitPromise = Promise.resolve({ success: true });
+                }
+
+                submitPromise.then(function() {
+                    var successMsg = document.createElement('div');
+                    successMsg.style.cssText = 'padding: 1rem; background: #10b981; color: white; border-radius: 0.5rem; text-align: center; margin-top: 1rem;';
+                    successMsg.textContent = 'Thank you! Your message has been sent. We will contact you shortly.';
+                    form.appendChild(successMsg);
                     form.reset();
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
-
-                    // Remove success message after 5 seconds
-                    setTimeout(function() {
-                        successMessage.remove();
-                    }, 5000);
-                }, 1500);
-
-                // TODO: Implement actual form submission
-                // Options:
-                // 1. Formspree: action="https://formspree.io/f/YOUR_FORM_ID"
-                // 2. Netlify Forms: add data-netlify="true" to form
-                // 3. Custom endpoint: fetch('/api/contact', { method: 'POST', body: new FormData(form) })
+                    setTimeout(function() { successMsg.remove(); }, 5000);
+                }).catch(function() {
+                    window.location.href = 'mailto:info@fpcconstructions.com?subject=Website%20Inquiry&body=' +
+                        encodeURIComponent('Name: ' + formData.first_name + ' ' + formData.last_name + '\nPhone: ' + formData.phone);
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
             }
         });
 
