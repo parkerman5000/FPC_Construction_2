@@ -16,6 +16,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://fpcconstructions.com/">
     <meta property="og:image" content="https://fpcconstructions.com/assets/images/logo.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="es_US">
+    <meta property="og:site_name" content="FPC Construction LLC">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FPC Construction LLC - Building Dreams Into Reality">
+    <meta name="twitter:description" content="Professional construction services in North Augusta, SC. Land clearing, grading, driveways, foundations, and more.">
+    <meta name="twitter:image" content="https://fpcconstructions.com/assets/images/logo.png">
+
+    <!-- Geo meta (complements JSON-LD for legacy crawlers) -->
+    <meta name="geo.region" content="US-SC">
+    <meta name="geo.placename" content="North Augusta">
+    <meta name="geo.position" content="33.5018;-81.9651">
+    <meta name="ICBM" content="33.5018, -81.9651">
+    <meta name="robots" content="index, follow, max-image-preview:large">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
@@ -28,16 +44,28 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": ["LocalBusiness", "GeneralContractor"],
       "@id": "https://fpcconstructions.com/#business",
       "name": "FPC Construction LLC",
-      "description": "Professional land clearing, grading, driveways, foundations, and septic services in North Augusta, SC. 15+ years experience, 500+ projects completed.",
+      "alternateName": "FPC Construction",
+      "description": "Family-owned general contractor serving the CSRA since 2009. Bilingual (English/Spanish) crew specializing in land clearing, grading, driveways, foundations, septic systems, and privacy fencing across North Augusta SC, Aiken, Edgefield, Augusta GA, and surrounding counties.",
       "url": "https://fpcconstructions.com",
       "telephone": "+1-803-884-9305",
       "email": "info@fpcconstructions.com",
-      "image": "https://fpcconstructions.com/assets/images/logo.png",
+      "image": [
+        "https://fpcconstructions.com/assets/images/logo.png"
+      ],
       "logo": "https://fpcconstructions.com/assets/images/logo.png",
       "foundingDate": "2009",
+      "priceRange": "$$",
+      "paymentAccepted": ["Cash", "Check", "Credit Card", "PayPal"],
+      "currenciesAccepted": "USD",
+      "knowsLanguage": ["en-US", "es-US"],
+      "founder": {
+        "@type": "Person",
+        "name": "Filemon Pineda",
+        "jobTitle": "Founder & Owner"
+      },
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "North Augusta",
@@ -51,27 +79,18 @@
         "longitude": -81.9651
       },
       "areaServed": [
-        {
-          "@type": "City",
-          "name": "North Augusta",
-          "sameAs": "https://en.wikipedia.org/wiki/North_Augusta,_South_Carolina"
-        },
-        {
-          "@type": "City",
-          "name": "Aiken"
-        },
-        {
-          "@type": "City",
-          "name": "Augusta"
-        },
-        {
-          "@type": "City",
-          "name": "Evans"
-        },
-        {
-          "@type": "City",
-          "name": "Martinez"
-        }
+        { "@type": "City", "name": "North Augusta", "sameAs": "https://en.wikipedia.org/wiki/North_Augusta,_South_Carolina" },
+        { "@type": "City", "name": "Aiken", "sameAs": "https://en.wikipedia.org/wiki/Aiken,_South_Carolina" },
+        { "@type": "City", "name": "Edgefield", "sameAs": "https://en.wikipedia.org/wiki/Edgefield,_South_Carolina" },
+        { "@type": "City", "name": "Augusta", "sameAs": "https://en.wikipedia.org/wiki/Augusta,_Georgia" },
+        { "@type": "City", "name": "Evans" },
+        { "@type": "City", "name": "Martinez" },
+        { "@type": "City", "name": "Grovetown" },
+        { "@type": "City", "name": "Thomson" },
+        { "@type": "City", "name": "Waynesboro" },
+        { "@type": "AdministrativeArea", "name": "Washington County, Georgia" },
+        { "@type": "AdministrativeArea", "name": "Edgefield County, South Carolina" },
+        { "@type": "AdministrativeArea", "name": "CSRA (Central Savannah River Area)" }
       ],
       "openingHoursSpecification": [
         {
@@ -79,7 +98,22 @@
           "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
           "opens": "07:00",
           "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:00",
+          "closes": "14:00"
         }
+      ],
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Land Clearing", "serviceType": "Site preparation" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Land Grading", "serviceType": "Excavation & Grading" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gravel Driveways", "serviceType": "Driveway installation" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Concrete Driveways", "serviceType": "Driveway installation" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Concrete Foundations", "serviceType": "Foundation work" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Septic Tank Install & Repair", "serviceType": "Septic systems" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Privacy Fencing", "serviceType": "Fence installation" } }
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
@@ -132,6 +166,17 @@
       "sameAs": []
     }
     </script>
+    <!--
+      TODO (Maestro, 2026-04-04): Populate the sameAs array above with the Google Business Profile
+      URL from the Google Maps listing that launched today, plus Facebook, Instagram, Nextdoor, BBB,
+      and Yelp URLs. This array connects entities in Google's Knowledge Graph and is critical for
+      Maps ranking. Example format:
+        "sameAs": [
+          "https://maps.google.com/?cid=XXXXXXXXXXXXXXXX",
+          "https://www.facebook.com/fpcconstructions",
+          "https://www.instagram.com/fpcconstructions"
+        ]
+    -->
 
     <!-- FAQ Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -185,6 +230,63 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, we stand behind our work with comprehensive warranties. The specific warranty terms depend on the type of project and are clearly outlined in your contract."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a permit for driveway installation in Augusta, GA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Augusta GA requires permits for new driveways. FPC Construction handles permitting for driveways in Grovetown GA and Martinez GA, ensuring compliance with local codes in the CSRA region."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does septic tank installation take in Washington County, GA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Septic tank installation in Washington County GA typically takes 1-3 days, depending on soil conditions. Our team serves Waynesboro GA and Thomson GA with efficient, licensed solutions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you grade land for a foundation near the Savannah River?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we specialize in land grading for foundations along the Savannah River, including areas like Thomson GA and North Augusta SC. Proper drainage is prioritized to prevent future issues."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between land clearing and land grading?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Land clearing removes vegetation; land grading levels the soil for construction. Both services are offered for projects in Edgefield SC and Grovetown GA to prepare building sites."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you install gravel driveways year-round?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we install gravel driveways year-round across the CSRA, including Thomson GA and North Augusta SC. Proper base compaction ensures long-term durability."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Requiere permiso la construcción de cercas en Georgia?",
+          "inLanguage": "es",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, depende del municipio. Nuestro equipo maneja trámites para cercas en Martinez GA, Evans GA y Waynesboro GA, garantizando cumplimiento legal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you have Spanish-speaking team members?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, our bilingual team communicates in English and Spanish for clients across the CSRA, ensuring clear project understanding from estimate through completion."
           }
         }
       ]
