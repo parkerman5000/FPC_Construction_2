@@ -1,0 +1,460 @@
+<!--
+====================================================================
+FPC CONSTRUCTION — REUSABLE VERTICAL PAGE TEMPLATE
+====================================================================
+Pattern: Hixon's Roofing 8-module chassis adapted for any FPC vertical
+(land-clearing, grading, driveways, foundations, septic, fencing, etc).
+
+HOW TO USE THIS TEMPLATE
+------------------------
+1. Copy this file to /{vertical-slug}/index.html
+   Example slugs (matching the hub homepage cards):
+     /land-clearing/index.html
+     /grading/index.html
+     /driveways/index.html
+     /foundations/index.html
+     /septic/index.html
+     /privacy-fencing/index.html
+
+2. Find-and-replace the following tokens (case-sensitive):
+
+   {{VERTICAL_SLUG}}           → e.g. "land-clearing" (URL-safe)
+   {{VERTICAL_NAME}}           → e.g. "Land Clearing"
+   {{VERTICAL_NAME_LOWER}}     → e.g. "land clearing"
+   {{VERTICAL_HERO_HEADLINE}}  → main H1, e.g. "Site Prep Done Clean Across the CSRA."
+   {{VERTICAL_HERO_SUBHEAD}}   → subhead paragraph (1–2 sentences)
+   {{VERTICAL_HERO_IMAGE}}     → "../assets/images/projects/gallery-N.jpg" (pick best)
+   {{VERTICAL_DECISION_TITLE}} → e.g. "Selective Clearing or Full Site Wipe?"
+   {{VERTICAL_DECISION_LEDE}}  → 1-sentence advisor lede
+   {{VERTICAL_PATH_A_TITLE}}   → e.g. "When Selective Clearing"
+   {{VERTICAL_PATH_A_LIST}}    → 5 <li>...</li> items
+   {{VERTICAL_PATH_B_TITLE}}   → e.g. "When Full Clearing"
+   {{VERTICAL_PATH_B_LIST}}    → 5 <li>...</li> items
+   {{VERTICAL_SERVICES_LIST}}  → 4–8 <div class="vertical-card">...</div> cards
+   {{VERTICAL_FAQ}}            → 8–12 .faq-long__item blocks (Q & A)
+   {{VERTICAL_FAQ_SCHEMA}}     → matching JSON-LD entries for FAQ
+   {{VERTICAL_FREE_OFFER}}     → e.g. "Free Site Walk-Through"
+   {{VERTICAL_INSURANCE_BLOCK}} → optional storm/insurance block (delete if N/A)
+
+3. Update sitemap.xml — add a new <url> entry for /{vertical-slug}/
+
+4. Update the hub homepage (/index.html):
+   - Confirm the vertical-card link is correct
+   - Optionally remove the "placeholder" status from the card
+
+5. Local sanity check:
+   - Open the file in a browser
+   - Verify sticky CTA, hero image loads, language toggle flips
+   - Verify FAQ accordion expands/collapses
+   - Verify ElevenLabs widget appears bottom-right
+   - Verify all links in the footer (especially absolute paths starting with /)
+
+6. Commit and push to feat/* branch — never commit straight to main.
+
+DESIGN CONSTRAINTS (do not break)
+---------------------------------
+- Use existing brand CSS (../assets/css/styles.min.css + hub-vertical.css)
+- Keep the ElevenLabs voice agent at end of <body>
+- Keep the LocalBusiness JSON-LD reference (provider @id) — service schema must
+  point at https://fpcconstructions.com/#business so Google links the entities.
+- Phone is always (803) 884-9305 / tel:8038849305
+- Three sticky CTAs: CALL / TALK TO FIL / FREE ESTIMATE (or vertical-specific FREE OFFER)
+- Mobile-first; 44px minimum tap target; thumb-reachable bottom CTAs.
+====================================================================
+-->
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FPC {{VERTICAL_NAME}} — family-owned, bilingual, serving North Augusta SC, Aiken, Augusta GA & the CSRA. Talk to Fil for a {{VERTICAL_FREE_OFFER}}.">
+    <meta name="keywords" content="{{VERTICAL_NAME_LOWER}} North Augusta SC, {{VERTICAL_NAME_LOWER}} Aiken SC, {{VERTICAL_NAME_LOWER}} Augusta GA, CSRA {{VERTICAL_NAME_LOWER}}">
+    <meta name="author" content="FPC Construction LLC">
+
+    <link rel="canonical" href="https://fpcconstructions.com/{{VERTICAL_SLUG}}/">
+
+    <meta property="og:title" content="FPC {{VERTICAL_NAME}} | CSRA">
+    <meta property="og:description" content="Family-owned {{VERTICAL_NAME_LOWER}} contractor serving the CSRA since 2020. Bilingual crew. Talk to Fil.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fpcconstructions.com/{{VERTICAL_SLUG}}/">
+    <meta property="og:image" content="https://fpcconstructions.com/assets/images/logo.png">
+
+    <meta name="geo.region" content="US-SC">
+    <meta name="geo.placename" content="North Augusta">
+    <meta name="geo.position" content="33.5018;-81.9651">
+    <meta name="ICBM" content="33.5018, -81.9651">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+
+    <title>FPC {{VERTICAL_NAME}} | North Augusta, Aiken, Augusta GA</title>
+
+    <link rel="stylesheet" href="../assets/css/styles.min.css">
+    <link rel="stylesheet" href="../assets/css/hub-vertical.css">
+
+    <!-- Service Schema (links to LocalBusiness on hub) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": "https://fpcconstructions.com/{{VERTICAL_SLUG}}/#service",
+      "name": "{{VERTICAL_NAME}}",
+      "serviceType": "{{VERTICAL_NAME}}",
+      "url": "https://fpcconstructions.com/{{VERTICAL_SLUG}}/",
+      "provider": { "@id": "https://fpcconstructions.com/#business" },
+      "areaServed": [
+        { "@type": "City", "name": "North Augusta" },
+        { "@type": "City", "name": "Aiken" },
+        { "@type": "City", "name": "Augusta" },
+        { "@type": "AdministrativeArea", "name": "CSRA" }
+      ]
+    }
+    </script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fpcconstructions.com/" },
+        { "@type": "ListItem", "position": 2, "name": "{{VERTICAL_NAME}}", "item": "https://fpcconstructions.com/{{VERTICAL_SLUG}}/" }
+      ]
+    }
+    </script>
+
+    <!-- FAQ Schema (matched to {{VERTICAL_FAQ}} body content) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {{VERTICAL_FAQ_SCHEMA}}
+      ]
+    }
+    </script>
+</head>
+<body class="has-sticky-cta">
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- 1. STICKY CTA -->
+    <div class="sticky-cta" role="region" aria-label="Quick contact">
+        <div class="sticky-cta__inner">
+            <a href="tel:8038849305" class="sticky-cta__btn sticky-cta__btn--call">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>Call (803) 884-9305</span>
+            </a>
+            <a href="https://elevenlabs.io/convai/agent_5801kehtxvkzenwvpc48t3sr5n56" target="_blank" rel="noopener" class="sticky-cta__btn sticky-cta__btn--talk">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+                <span>Talk to Fil</span>
+            </a>
+            <a href="#contact" class="sticky-cta__btn sticky-cta__btn--estimate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                <span>{{VERTICAL_FREE_OFFER}}</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="/" class="nav__logo">
+                <img src="../assets/images/logo.png" alt="FPC Construction LLC Logo" class="nav__logo-img">
+            </a>
+            <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="nav__toggle-bar"></span><span class="nav__toggle-bar"></span><span class="nav__toggle-bar"></span>
+            </button>
+            <ul class="nav__menu" id="nav-menu">
+                <li class="nav__item"><a href="/" class="nav__link">Home</a></li>
+                <li class="nav__item"><a href="/#services" class="nav__link">Services</a></li>
+                <li class="nav__item"><a href="/{{VERTICAL_SLUG}}/" class="nav__link active">{{VERTICAL_NAME}}</a></li>
+                <li class="nav__item"><a href="/#projects" class="nav__link">Projects</a></li>
+                <li class="nav__item"><a href="#faq" class="nav__link">FAQ</a></li>
+                <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                <li class="nav__item nav__item--cta">
+                    <a href="tel:8038849305" class="btn btn--primary nav__cta">Call Now</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <div class="breadcrumb__inner">
+            <a href="/">Home</a>
+            <span class="breadcrumb__sep">›</span>
+            <span>{{VERTICAL_NAME}}</span>
+        </div>
+    </nav>
+
+    <main id="main">
+
+        <!-- 2. HERO -->
+        <section class="hub-hero" id="home" style="background-image: url('{{VERTICAL_HERO_IMAGE}}');">
+            <div class="hub-hero__overlay"></div>
+            <div class="lang-toggle" role="group" aria-label="Language selector">
+                <button type="button" class="lang-toggle__btn is-active" data-set-lang="en" aria-pressed="true">EN</button>
+                <button type="button" class="lang-toggle__btn" data-set-lang="es" aria-pressed="false">ES</button>
+            </div>
+            <div class="hub-hero__content">
+                <span class="hub-hero__eyebrow">FPC {{VERTICAL_NAME}} · Family-Owned · Bilingual</span>
+                <h1 class="hub-hero__title">{{VERTICAL_HERO_HEADLINE}}</h1>
+                <p class="hub-hero__subtitle">{{VERTICAL_HERO_SUBHEAD}}</p>
+                <div class="hub-hero__cta">
+                    <a href="tel:8038849305" class="btn btn--primary btn--large">Call (803) 884-9305</a>
+                    <a href="https://elevenlabs.io/convai/agent_5801kehtxvkzenwvpc48t3sr5n56" target="_blank" rel="noopener" class="btn btn--outline-light btn--large">Talk to Fil</a>
+                    <a href="#contact" class="btn btn--primary btn--large">{{VERTICAL_FREE_OFFER}}</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. TRUST BAR -->
+        <section class="trust-bar" aria-label="Trust signals">
+            <div class="trust-bar__inner">
+                <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Licensed &amp; Insured</div>
+                <!-- TODO: replace with confirmed SC GC license number -->
+                <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12l2 2 4-4"/></svg>SC GC License #_____</div>
+                <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/></svg>BBB-Accredited</div>
+                <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Family-Owned Since 2020</div>
+                <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>500+ Projects</div>
+                <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/></svg>Bilingual EN / ES</div>
+            </div>
+        </section>
+
+        <!-- 4. ADVISOR / DECISION SECTION -->
+        <section class="advisor" id="decision">
+            <div class="advisor__header">
+                <h2 class="advisor__title">{{VERTICAL_DECISION_TITLE}}</h2>
+                <p class="advisor__lede">{{VERTICAL_DECISION_LEDE}}</p>
+            </div>
+            <div class="advisor__grid">
+                <div class="advisor__col">
+                    <span class="advisor__col-tag">Path A</span>
+                    <h3 class="advisor__col-title">{{VERTICAL_PATH_A_TITLE}}</h3>
+                    <ul class="advisor__list">
+                        {{VERTICAL_PATH_A_LIST}}
+                    </ul>
+                </div>
+                <div class="advisor__col">
+                    <span class="advisor__col-tag">Path B</span>
+                    <h3 class="advisor__col-title">{{VERTICAL_PATH_B_TITLE}}</h3>
+                    <ul class="advisor__list">
+                        {{VERTICAL_PATH_B_LIST}}
+                    </ul>
+                </div>
+            </div>
+            <div class="advisor__bottom">
+                <p><strong>Not sure?</strong> Talk to Fil for a {{VERTICAL_FREE_OFFER}}.</p>
+                <a href="#contact" class="btn btn--primary">{{VERTICAL_FREE_OFFER}}</a>
+            </div>
+        </section>
+
+        <!-- 5. SERVICES GRID for this vertical -->
+        <section class="verticals" id="services">
+            <div class="section__header">
+                <span class="section__label">{{VERTICAL_NAME}} Services</span>
+                <h2 class="advisor__title">{{VERTICAL_NAME}} — Every Job, One Crew</h2>
+                <p class="advisor__lede" style="max-width: 720px; margin: 0 auto;">All run by FPC's own crew. All backed by the same workmanship warranty.</p>
+            </div>
+            <div class="verticals__grid">
+                {{VERTICAL_SERVICES_LIST}}
+            </div>
+        </section>
+
+        <!-- 6. OPTIONAL: Insurance / Storm / Specialty named section -->
+        <!-- Delete this <section> if not relevant for this vertical. -->
+        {{VERTICAL_INSURANCE_BLOCK}}
+
+        <!-- 7. GEO STRIP -->
+        <!-- TODO: replace #contact anchors with /service-areas/{slug}/ pages once geo pages are built -->
+        <section class="geo-strip" aria-label="{{VERTICAL_NAME}} service areas">
+            <h2 class="geo-strip__title">{{VERTICAL_NAME}} Across the CSRA</h2>
+            <p class="geo-strip__sub">Same crew, same number, on both sides of the river.</p>
+            <div class="geo-strip__pills">
+                <a href="#contact" class="geo-pill">North Augusta, SC</a>
+                <a href="#contact" class="geo-pill">Aiken, SC</a>
+                <a href="#contact" class="geo-pill">Augusta, GA</a>
+                <a href="#contact" class="geo-pill">Edgefield, SC</a>
+                <a href="#contact" class="geo-pill">Columbia, SC</a>
+                <a href="#contact" class="geo-pill">Evans, GA</a>
+                <a href="#contact" class="geo-pill">Martinez, GA</a>
+                <a href="#contact" class="geo-pill">CSRA</a>
+            </div>
+        </section>
+
+        <!-- Reviews placeholder (Trustindex) -->
+        <!--
+            TRUSTINDEX SETUP:
+            1. Sign up at https://trustindex.io
+            2. Generate a Google Reviews widget styled in navy/gold
+            3. Paste embed inside #trustindex-reviews and remove data-pending-widget
+        -->
+        <section class="reviews-block" id="reviews">
+            <div class="reviews-block__container">
+                <div class="section__header">
+                    <span class="section__label">Reviews</span>
+                    <h2 class="advisor__title">What {{VERTICAL_NAME}} Customers Say</h2>
+                </div>
+                <div id="trustindex-reviews" data-pending-widget aria-label="Google Reviews"></div>
+                <a href="https://www.google.com/search?q=FPC+Construction+Reviews&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOa52NiG5jcIeJzVbHJr3QWYz2zeM4RAeHHgV45bU-rkcMVLVHPVQb2KynWvxU1cD58mYMtE0fLgoerquXM5FLJvL927YVAGD-vUpALB5I0oIzTiLLQ%3D%3D" target="_blank" rel="noopener" class="btn btn--google-review">Leave Us a Google Review</a>
+            </div>
+        </section>
+
+        <!-- Contact form -->
+        <section class="contact section" id="contact">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__label">{{VERTICAL_FREE_OFFER}}</span>
+                    <h2 class="section__title">Get Your {{VERTICAL_FREE_OFFER}}</h2>
+                    <p class="section__description">Fill out the form and we'll get back within 24 hours.</p>
+                </div>
+                <div class="contact__grid">
+                    <div class="contact__info">
+                        <div class="contact__info-item">
+                            <div class="contact__info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+                            <div class="contact__info-content">
+                                <h3 class="contact__info-title">Phone</h3>
+                                <p><a href="tel:8038849305">(803) 884-9305</a></p>
+                            </div>
+                        </div>
+                        <div class="contact__info-item">
+                            <div class="contact__info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                            <div class="contact__info-content">
+                                <h3 class="contact__info-title">Email</h3>
+                                <p><a href="mailto:info@fpcconstructions.com">info@fpcconstructions.com</a></p>
+                            </div>
+                        </div>
+                        <div class="contact__info-item">
+                            <div class="contact__info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                            <div class="contact__info-content">
+                                <h3 class="contact__info-title">Hours</h3>
+                                <p>Mon-Fri: 7AM - 6PM</p>
+                                <p>Sat: 8AM - 2PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact__form-wrapper">
+                        <form class="contact__form" id="contact-form" action="#" method="POST">
+                            <div class="form__group">
+                                <label for="name" class="form__label">Full Name *</label>
+                                <input type="text" id="name" name="name" class="form__input" required placeholder="John Doe" autocomplete="name">
+                            </div>
+                            <div class="form__row">
+                                <div class="form__group">
+                                    <label for="email" class="form__label">Email *</label>
+                                    <input type="email" id="email" name="email" class="form__input" required placeholder="john@example.com" autocomplete="email">
+                                </div>
+                                <div class="form__group">
+                                    <label for="phone" class="form__label">Phone *</label>
+                                    <input type="tel" id="phone" name="phone" class="form__input" required placeholder="(803) 555-0123" autocomplete="tel">
+                                </div>
+                            </div>
+                            <div class="form__group">
+                                <label for="message" class="form__label">Project Details</label>
+                                <textarea id="message" name="message" class="form__textarea" rows="5" placeholder="Tell us about your {{VERTICAL_NAME_LOWER}} project..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--large btn--full">Request {{VERTICAL_FREE_OFFER}}</button>
+                            <p class="form__note">By submitting this form, you agree to be contacted regarding your inquiry.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. FAQ (long-form, advisor tone) -->
+        <section class="faq-long" id="faq">
+            <div class="faq-long__container">
+                <div class="faq-long__header">
+                    <span class="section__label">{{VERTICAL_NAME}} FAQ</span>
+                    <h2 class="faq-long__title">{{VERTICAL_NAME}} Questions People Actually Ask</h2>
+                    <p class="faq-long__lede">The most common things homeowners and property managers in the CSRA ask before they hire us.</p>
+                </div>
+                <div class="faq-long__list">
+                    {{VERTICAL_FAQ}}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (mirrors hub) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <a href="/" class="footer__logo">
+                        <img src="../assets/images/logo.png" alt="FPC Construction LLC Logo">
+                    </a>
+                    <p class="footer__tagline">Talk to Fil — He's Built 500 of These.</p>
+                    <p class="footer__description">Family-owned general contractor in North Augusta, SC and the surrounding CSRA region since 2020.</p>
+                </div>
+                <div class="footer__links">
+                    <h3 class="footer__title">Quick Links</h3>
+                    <ul class="footer__nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#services">Services</a></li>
+                        <li><a href="/#projects">Projects</a></li>
+                        <li><a href="/#reviews">Reviews</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer__services">
+                    <h3 class="footer__title">Our Services</h3>
+                    <ul class="footer__nav">
+                        <li><a href="/roofing/">Roofing</a></li>
+                        <li><a href="/land-clearing/">Land Clearing</a></li>
+                        <li><a href="/grading/">Land Grading</a></li>
+                        <li><a href="/driveways/">Driveways</a></li>
+                        <li><a href="/foundations/">Foundations</a></li>
+                        <li><a href="/septic/">Septic Services</a></li>
+                        <li><a href="/privacy-fencing/">Privacy Fencing</a></li>
+                    </ul>
+                </div>
+                <div class="footer__contact">
+                    <h3 class="footer__title">Contact Info</h3>
+                    <ul class="footer__contact-list">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>North Augusta, SC 29860</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:8038849305">(803) 884-9305</a></li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:info@fpcconstructions.com">info@fpcconstructions.com</a></li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Mon-Fri: 7AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">&copy; <span id="current-year">2025</span> FPC Construction LLC. All rights reserved.</p>
+                <p class="footer__powered"><a href="https://mpowerio.ai" target="_blank" rel="noopener">Powered by mpowerio.ai</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.min.js"></script>
+    <script>
+    (function() {
+        var langButtons = document.querySelectorAll('.lang-toggle__btn[data-set-lang]');
+        langButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var lang = btn.getAttribute('data-set-lang');
+                document.documentElement.setAttribute('data-lang', lang);
+                document.documentElement.setAttribute('lang', lang);
+                langButtons.forEach(function(b) {
+                    var isActive = b.getAttribute('data-set-lang') === lang;
+                    b.classList.toggle('is-active', isActive);
+                    b.setAttribute('aria-pressed', String(isActive));
+                });
+            });
+        });
+        var faqQs = document.querySelectorAll('.faq-long__q');
+        faqQs.forEach(function(q) {
+            q.addEventListener('click', function() {
+                var expanded = q.getAttribute('aria-expanded') === 'true';
+                q.setAttribute('aria-expanded', String(!expanded));
+            });
+        });
+    })();
+    </script>
+
+    <!-- ElevenLabs voice agent (Talk to Fil) -->
+    <elevenlabs-convai agent-id="agent_5801kehtxvkzenwvpc48t3sr5n56"></elevenlabs-convai>
+    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+</body>
+</html>
