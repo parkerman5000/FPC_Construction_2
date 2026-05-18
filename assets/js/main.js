@@ -809,7 +809,7 @@
   }
 
   function renderGallery(photos) {
-    var track = document.querySelector('.gallery__track');
+    var track = document.querySelector('.gallery__grid');
     if (!track) return;
     track.innerHTML = photos.map(function(p) {
       var src = SUPABASE_URL + '/storage/v1/object/public/gallery/' + escapeAttr(p.storage_path);
