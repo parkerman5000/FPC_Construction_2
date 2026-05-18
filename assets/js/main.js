@@ -154,20 +154,16 @@
     }
 
     // ============================================
-    // Reviews Data (randomized on each page load)
+    // Reviews Data
     // ============================================
-    var reviewsData = [
-        { name: 'John Mitchell', role: 'Homeowner', stars: 5, quote: 'Our new driveway is absolutely stunning! The crew was professional from start to finish. They arrived on time, worked efficiently, and left the site spotless. Couldn\'t be happier with the results.' },
-        { name: 'Sarah Reynolds', role: 'Business Owner', stars: 5, quote: 'Outstanding work on our commercial project! FPC Construction delivered on time and within budget. Their attention to detail and professionalism made the entire process smooth and stress-free.' },
-        { name: 'David Thompson', role: 'Homeowner', stars: 5, quote: 'The stamped concrete patio looks amazing and has transformed our backyard into an outdoor oasis. FPC\'s team was knowledgeable, friendly, and truly cared about getting every detail right.' },
-        { name: 'Michael Johnson', role: 'Homeowner', stars: 5, quote: 'Best concrete contractor in the area! They repaired our damaged foundation and now it looks better than new. Professional, reliable, and reasonably priced. Highly recommend FPC Construction!' },
-        { name: 'Amanda Collins', role: 'Homeowner', stars: 5, quote: 'FPC cleared our 2-acre lot in just two days. The land was perfectly graded and ready for our new build. Their equipment operators really know what they\'re doing. Would absolutely hire them again.' },
-        { name: 'Robert Williams', role: 'Property Developer', stars: 5, quote: 'We\'ve used FPC Construction on three separate projects now. Septic installation, grading, and a commercial driveway. Every single time they deliver quality work on schedule. They\'re our go-to contractor.' },
-        { name: 'Lisa Patterson', role: 'Homeowner', stars: 5, quote: 'Our privacy fence looks incredible! The crew was respectful of our property and finished ahead of schedule. The fence is solid, level, and exactly what we wanted. Five stars all the way.' },
-        { name: 'James Carter', role: 'Homeowner', stars: 5, quote: 'Had them install a new septic system for our rural property. Everything passed inspection on the first try. Fair pricing and they explained every step of the process. True professionals.' },
-        { name: 'Karen Davis', role: 'Homeowner', stars: 5, quote: 'FPC Construction saved us after another contractor left our grading half-done. They came in, fixed the mess, and completed the job beautifully. Honest, hardworking, and dependable.' },
-        { name: 'Thomas Wright', role: 'Business Owner', stars: 5, quote: 'Hired FPC for our new warehouse foundation. Rock-solid work and they handled all the permitting headaches for us. The kind of contractor you can trust with a handshake. Highly recommend.' }
-    ];
+    // 2026-05-18: emptied — production was shipping 10 fictional reviews
+    // since Feb 2026 (John Mitchell, Sarah Reynolds, et al.) which is
+    // fraud-adjacent for a contractor's public site. The carousel hides
+    // itself when this array is empty (see initTestimonialsCarousel),
+    // leaving the "Leave Us a Google Review" CTA as the only testimonials
+    // surface until real Google Business Profile reviews are wired in.
+    // Long-term path: Google Places API integration.
+    var reviewsData = [];
 
     function shuffleArray(array) {
         var shuffled = array.slice();
@@ -198,6 +194,13 @@
     function initTestimonialsCarousel() {
         const carousel = document.querySelector('.testimonials__carousel');
         if (!carousel) return;
+
+        // Hide the carousel entirely when there are no real reviews to show.
+        // CTA below the carousel ("Leave Us a Google Review") remains visible.
+        if (!reviewsData || reviewsData.length === 0) {
+            carousel.style.display = 'none';
+            return;
+        }
 
         const track = carousel.querySelector('.testimonials__track');
         const prevBtn = carousel.querySelector('.testimonials__btn--prev');
