@@ -792,3 +792,52 @@
     }
 
 })();
+
+// ============================================
+// Gallery from Supabase (FPC MOS v1 — 2026-05-18)
+// ============================================
+(function loadGalleryFromSupabase() {
+  var SUPABASE_URL = 'https://megvbltgovdrotqbqgtl.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1lZ3ZibHRnb3Zkcm90cWJxZ3RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNjk2NDIsImV4cCI6MjA4OTg0NTY0Mn0.cJwxs5JOsSZZGNwagvRU0yH_k_IXTHIHz0DDRxDqPIE';
+  var TENANT_ID = 'fpc';
+
+  function escapeAttr(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function renderGallery(photos) {
+    var track = document.querySelector('.gallery__grid');
+    if (!track) return;
+    track.innerHTML = photos.map(function(p) {
+      var src = SUPABASE_URL + '/storage/v1/object/public/gallery/' + escapeAttr(p.storage_path);
+      var alt = p.alt_text || p.caption || 'FPC Construction work sample';
+      var cap = p.caption ? '<figcaption>' + escapeHtml(p.caption) + '</figcaption>' : '';
+      return '<figure class="gallery__item" data-category="' + escapeAttr(p.category || 'other') + '">' +
+        '<img src="' + src + '" alt="' + escapeAttr(alt) + '" loading="lazy" />' +
+        cap + '</figure>';
+    }).join('');
+  }
+
+  async function load() {
+    try {
+      var url = SUPABASE_URL + '/rest/v1/gallery_photos?tenant_id=eq.' + TENANT_ID +
+                '&select=*&order=sort_order.asc';
+      var r = await fetch(url, { headers: { apikey: SUPABASE_ANON_KEY } });
+      if (!r.ok) throw new Error('Supabase HTTP ' + r.status);
+      var photos = await r.json();
+      if (!Array.isArray(photos) || photos.length === 0) return;
+      renderGallery(photos);
+    } catch (e) {
+      console.warn('[gallery] Supabase fetch failed, using baked-in photos:', e.message);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', load);
+  } else {
+    load();
+  }
+})();
