@@ -1721,13 +1721,13 @@ h1, h2, h3, h4, h5, h6 {
    Operator Sign In Nav Link (FPC MOS v1)
    ============================================ */
 .nav__item--operator .nav__link--operator {
-  border: 1px solid var(--fpc-gold, #D4A93A);
+  border: 1px solid var(--color-accent);
   border-radius: 4px;
   padding: 6px 14px;
-  color: var(--fpc-gold, #D4A93A);
+  color: var(--color-accent);
   transition: background-color 0.2s, color 0.2s;
 }
 .nav__item--operator .nav__link--operator:hover {
-  background-color: var(--fpc-gold, #D4A93A);
-  color: var(--fpc-black, #0b0b0b);
+  background-color: var(--color-accent);
+  color: var(--color-primary);
 }
