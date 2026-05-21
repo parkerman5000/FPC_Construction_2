@@ -809,9 +809,9 @@
   }
 
   function renderGallery(photos) {
-    var track = document.querySelector('.gallery__grid');
-    if (!track) return;
-    track.innerHTML = photos.map(function(p) {
+    var grid = document.querySelector('.gallery__grid');
+    if (!grid) return;
+    grid.innerHTML = photos.map(function(p) {
       var src = SUPABASE_URL + '/storage/v1/object/public/gallery/' + escapeAttr(p.storage_path);
       var alt = p.alt_text || p.caption || 'FPC Construction work sample';
       var cap = p.caption ? '<figcaption>' + escapeHtml(p.caption) + '</figcaption>' : '';
