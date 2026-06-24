@@ -839,6 +839,15 @@
                                 <textarea id="message" name="message" class="form__textarea" rows="5" placeholder="Tell us about your project..."></textarea>
                             </div>
 
+                            <!-- Honeypot: hidden from humans, bots fill it. The CRM lead route
+                                 rejects any submission where company_website is non-empty.
+                                 aria-hidden + tabindex=-1 + autocomplete=off keep it off the a11y
+                                 tree and out of password managers. -->
+                            <div class="form__hp" aria-hidden="true" style="position:absolute;left:-5000px;height:0;width:0;overflow:hidden;">
+                                <label for="company_website">Company Website</label>
+                                <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+                            </div>
+
                             <button type="submit" class="btn btn--primary btn--large btn--full">
                                 Request Free Estimate
                             </button>
@@ -1041,6 +1050,17 @@
         </div>
     </footer>
 
+    <!--
+      Lead intake target. Website contact-form leads POST to
+      FPC_BOOKING_URL + "/webhook/lead-intake" (see assets/js/main.js).
+      Pointed at the always-on Vercel CRM public route, which writes the lead
+      directly into the CRM's Supabase (source of truth) — no dependency on the
+      Butch booking service or the Cloudflare tunnel. Resolves to:
+        https://fpc-construction-crm.vercel.app/api/public/webhook/lead-intake
+      NOTE: this route must be deployed before the form will deliver. See the
+      cross-linked CRM PR (feat/fpc-public-lead-route).
+    -->
+    <script>window.FPC_BOOKING_URL = "https://fpc-construction-crm.vercel.app/api/public";</script>
     <script src="assets/js/main.min.js"></script>
 
     <!-- FPC Construction — Fil Voice Agent (ElevenLabs) -->
