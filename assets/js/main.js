@@ -480,7 +480,9 @@
                 submitBtn.textContent = 'Sending...';
                 submitBtn.disabled = true;
 
-                // Collect form data for booking service
+                // Collect form data for the CRM lead route. The hidden honeypot
+                // (#company_website) is forwarded so the server can reject bots.
+                var hpEl = form.querySelector('#company_website');
                 var formData = {
                     first_name: form.querySelector('#name').value.split(' ')[0],
                     last_name: form.querySelector('#name').value.split(' ').slice(1).join(' ') || '',
@@ -489,7 +491,8 @@
                     project_type: form.querySelector('#service').value,
                     notes: form.querySelector('#message').value,
                     language_preference: 'en',
-                    service_area: 'Website Contact Form'
+                    service_area: 'Website Contact Form',
+                    company_website: hpEl ? hpEl.value : ''
                 };
 
                 // Send to booking service lead-intake endpoint
