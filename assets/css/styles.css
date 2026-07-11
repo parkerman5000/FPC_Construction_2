@@ -17,6 +17,7 @@
     --color-accent: #d4a937;         /* Gold/yellow accent */
     --color-accent-dark: #b8922f;    /* Darker gold */
     --color-accent-light: #e8c55a;   /* Lighter gold */
+    --color-accent-text: #8a6a17;    /* Accessible gold for small text on light bg — WCAG AA 4.5:1 */
 
     /* Neutral Colors */
     --color-white: #ffffff;
@@ -240,7 +241,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     margin-bottom: var(--spacing-3);
 }
 
@@ -744,7 +745,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .service-card__link {
     font-weight: var(--font-weight-semibold);
-    color: var(--color-accent-dark);
+    color: var(--color-accent-text);
     transition: color var(--transition-fast);
 }
 
@@ -1218,7 +1219,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact__info-content a {
-    color: var(--color-accent-dark);
+    color: var(--color-accent-text);
     transition: color var(--transition-fast);
 }
 
@@ -1494,16 +1495,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer__copyright {
     font-size: var(--font-size-sm);
-    color: var(--color-gray-500);
+    color: var(--color-gray-400);
 }
 
 .footer__powered {
     font-size: var(--font-size-sm);
-    color: var(--color-gray-600);
+    color: var(--color-gray-400);
 }
 
 .footer__powered a {
-    color: var(--color-gray-500);
+    color: var(--color-gray-400);
     transition: color var(--transition-fast);
 }
 
