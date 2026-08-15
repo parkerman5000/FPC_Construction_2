@@ -208,7 +208,7 @@
           "name": "What payment methods do you accept?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We accept cash, checks, and all major credit cards. We also offer PayPal Pay in 4, which lets you split your payment into 4 interest-free payments. For larger projects, financing options are available."
+            "text": "We accept cash, checks, and all major credit cards. Through PayPal you can also split the cost over time — interest-free installments on smaller jobs, or monthly financing on larger projects. Terms and eligibility are set by PayPal and shown before you commit."
           }
         },
         {
@@ -279,6 +279,18 @@
       ]
     }
     </script>
+
+    <!-- PayPal Pay Later messaging SDK (FPC CONSTRUCTION account, "FPC CRM"
+         application). The client id is public by design — it ships in the
+         page source on every PayPal integration and is not a secret.
+
+         `components=messages` loads ONLY the messaging component. If a
+         checkout button is ever added to this page, add `buttons` to this
+         same tag rather than adding a second <script> — two SDK loads on
+         one page race each other. -->
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=BAAR3Vl31fha6z66-3iPRDebA0XeLs0NZ5mWddS4yqkaHwtCmwyi3bCPIy306QQIcDbHzyYe89p0KN8F2c&components=messages"
+        data-namespace="PayPalSDK"></script>
 </head>
 <body>
     <!-- Skip to main content for accessibility -->
@@ -995,7 +1007,21 @@
                             </svg>
                         </button>
                         <div class="faq__answer">
-                            <p>We accept cash, checks, and all major credit cards. We also offer PayPal Pay in 4, which lets you split your payment into 4 interest-free payments. For larger projects, financing options are available to help make your project more affordable.</p>
+                            <p>We accept cash, checks, and all major credit cards. Through PayPal you can also split the cost over time — interest-free installments on smaller jobs, or monthly financing on larger projects. Terms and eligibility are set by PayPal and shown before you commit.</p>
+                            <!-- Live Pay Later messaging. No data-pp-amount is set on
+                                 purpose: this page quotes no prices, so PayPal renders
+                                 its generic offer instead of a payment figure computed
+                                 from a number we do not have. On the estimate surface,
+                                 where a real total exists, set data-pp-amount to it.
+                                 text-color is black because this FAQ sits on
+                                 section--gray, a LIGHT background. On the dark sections
+                                 of this site it must be white or the required financing
+                                 disclosure renders invisible. -->
+                            <div
+                                data-pp-message
+                                data-pp-style-layout="text"
+                                data-pp-style-logo-type="inline"
+                                data-pp-style-text-color="black"></div>
                         </div>
                     </div>
 
