@@ -459,9 +459,37 @@
             }
         }
 
+        var submitting = false;
+        var formStatus;
+
+        function showSubmissionStatus(received) {
+            formStatus = document.createElement('div');
+            formStatus.setAttribute('role', received ? 'status' : 'alert');
+            formStatus.style.cssText = 'padding: 1rem; color: white; border-radius: 0.5rem; margin-top: 1rem;';
+            formStatus.style.background = received ? '#166534' : '#991b1b';
+            if (received) {
+                formStatus.textContent = 'Thank you! Your inquiry has been received. We will contact you shortly.';
+            } else {
+                formStatus.textContent = "We couldn't confirm your inquiry was received. Your details are still here. Please try again or call ";
+                var phoneLink = document.createElement('a');
+                phoneLink.href = 'tel:8038849305';
+                phoneLink.textContent = '(803) 884-9305';
+                phoneLink.style.cssText = 'color: white; text-decoration: underline;';
+                formStatus.appendChild(phoneLink);
+                formStatus.setAttribute('tabindex', '-1');
+            }
+            form.appendChild(formStatus);
+            if (!received) formStatus.focus();
+        }
+
         // Form submission
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (submitting) return;
+            if (formStatus) {
+                formStatus.remove();
+                formStatus = null;
+            }
 
             let isValid = true;
 
@@ -477,6 +505,7 @@
                 var submitBtn = form.querySelector('button[type="submit"]');
                 var originalText = submitBtn.textContent;
 
+                submitting = true;
                 submitBtn.textContent = 'Sending...';
                 submitBtn.disabled = true;
 
@@ -495,42 +524,40 @@
                     company_website: hpEl ? hpEl.value : ''
                 };
 
-                // Send to booking service lead-intake endpoint
+                // A successful HTTP response alone is not proof of a captured lead.
                 var bookingServiceUrl = window.FPC_BOOKING_URL || '';
-                var submitPromise;
+                var controller = new AbortController();
+                var timeoutId;
+                var timeout = new Promise(function(resolve, reject) {
+                    timeoutId = setTimeout(function() {
+                        controller.abort();
+                        reject(new Error('Inquiry confirmation timed out'));
+                    }, 15000);
+                });
+                var request = bookingServiceUrl ? fetch(bookingServiceUrl + '/webhook/lead-intake', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                    signal: controller.signal
+                }).then(function(res) {
+                    if (!res.ok) throw new Error('Inquiry was not accepted');
+                    return res.json();
+                }).then(function(receipt) {
+                    if (!receipt || receipt.success !== true ||
+                        typeof receipt.booking_id !== 'string' || !receipt.booking_id.trim()) {
+                        throw new Error('Missing inquiry confirmation');
+                    }
+                }) : Promise.reject(new Error('Inquiry service is not configured'));
 
-                if (bookingServiceUrl) {
-                    submitPromise = fetch(bookingServiceUrl + '/webhook/lead-intake', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData)
-                    }).then(function(res) { return res.json(); });
-                } else {
-                    // Fallback: mailto if no booking service configured
-                    var subject = encodeURIComponent('New Lead: ' + formData.first_name + ' ' + formData.last_name);
-                    var body = encodeURIComponent(
-                        'Name: ' + formData.first_name + ' ' + formData.last_name +
-                        '\nEmail: ' + formData.email +
-                        '\nPhone: ' + formData.phone +
-                        '\nService: ' + formData.project_type +
-                        '\nMessage: ' + formData.notes
-                    );
-                    window.location.href = 'mailto:info@fpcconstructions.com?subject=' + subject + '&body=' + body;
-                    submitPromise = Promise.resolve({ success: true });
-                }
-
-                submitPromise.then(function() {
-                    var successMsg = document.createElement('div');
-                    successMsg.style.cssText = 'padding: 1rem; background: #10b981; color: white; border-radius: 0.5rem; text-align: center; margin-top: 1rem;';
-                    successMsg.textContent = 'Thank you! Your message has been sent. We will contact you shortly.';
-                    form.appendChild(successMsg);
+                // The deadline includes reading/parsing the body, not just headers.
+                Promise.race([request, timeout]).then(function() {
+                    showSubmissionStatus(true);
                     form.reset();
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    setTimeout(function() { successMsg.remove(); }, 5000);
                 }).catch(function() {
-                    window.location.href = 'mailto:info@fpcconstructions.com?subject=Website%20Inquiry&body=' +
-                        encodeURIComponent('Name: ' + formData.first_name + ' ' + formData.last_name + '\nPhone: ' + formData.phone);
+                    showSubmissionStatus(false);
+                }).finally(function() {
+                    clearTimeout(timeoutId);
+                    submitting = false;
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
                 });
